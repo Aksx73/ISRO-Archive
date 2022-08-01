@@ -9,16 +9,16 @@ import retrofit2.http.GET
 
 interface ISROApiService {
 
-    @GET("/spacecrafts")
+    @GET("spacecrafts")
     suspend fun getSpacecrafts():Response<SpacecraftList>
 
-    @GET("/launchers")
+    @GET("launchers")
     suspend fun getLaunchers():Response<LauncherList>
 
-    @GET("/customer_satellites")
+    @GET("customer_satellites")
     suspend fun getCustomerSatellites():Response<CustomerSatelliteList>
 
-    @GET("/centres")
+    @GET("centres")
     suspend fun getCentres():Response<CenterList>
 
 }

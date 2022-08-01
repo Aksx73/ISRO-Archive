@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
+import com.absut.isro.archive.R
 import com.absut.isro.archive.databinding.FragmentHomeBinding
 
 /**
@@ -31,6 +32,22 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.cardCenters.setOnClickListener {
+            findNavController().navigate(R.id.action_HomeFragment_to_centersFragment)
+        }
+
+        binding.cardLaunchers.setOnClickListener {
+            findNavController().navigate(R.id.action_HomeFragment_to_launchersFragment)
+        }
+
+        binding.cardSpacecraft.setOnClickListener {
+            findNavController().navigate(R.id.action_HomeFragment_to_spacecraftFragment)
+        }
+
+        binding.cardCustomerSatellites.setOnClickListener {
+            findNavController().navigate(R.id.action_HomeFragment_to_customerSatellitesFragment)
+        }
 
     }
 

@@ -8,7 +8,55 @@
     <fragment
         android:id="@+id/HomeFragment"
         android:name="com.absut.isro.archive.ui.fragment.HomeFragment"
-        android:label="@string/first_fragment_label"
+        android:label="@string/app_name"
         tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_HomeFragment_to_spacecraftFragment"
+            app:destination="@id/spacecraftFragment" />
+        <action
+            android:id="@+id/action_HomeFragment_to_launchersFragment"
+            app:destination="@id/launchersFragment" />
+        <action
+            android:id="@+id/action_HomeFragment_to_customerSatellitesFragment"
+            app:destination="@id/customerSatellitesFragment" />
+        <action
+            android:id="@+id/action_HomeFragment_to_centersFragment"
+            app:destination="@id/centersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/spacecraftFragment"
+        android:name="com.absut.isro.archive.ui.fragment.SpacecraftFragment"
+        android:label="Spacecraft"
+        tools:layout="@layout/fragment_spacecraft" >
+        <action
+            android:id="@+id/action_spacecraftFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/launchersFragment"
+        android:name="com.absut.isro.archive.ui.fragment.LaunchersFragment"
+        android:label="Launchers"
+        tools:layout="@layout/fragment_launchers" >
+        <action
+            android:id="@+id/action_launchersFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/customerSatellitesFragment"
+        android:name="com.absut.isro.archive.ui.fragment.CustomerSatellitesFragment"
+        android:label="Customer Satellites"
+        tools:layout="@layout/fragment_customer_satellites" >
+        <action
+            android:id="@+id/action_customerSatellitesFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/centersFragment"
+        android:name="com.absut.isro.archive.ui.fragment.CentersFragment"
+        android:label="Centers"
+        tools:layout="@layout/fragment_centers" >
+        <action
+            android:id="@+id/action_centersFragment_to_HomeFragment"
+            app:destination="@id/HomeFragment" />
     </fragment>
 </navigation>
