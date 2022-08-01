@@ -5,7 +5,6 @@ import com.absut.isro.archive.data.model.CustomerSatelliteList
 import com.absut.isro.archive.data.model.LauncherList
 import com.absut.isro.archive.data.model.SpacecraftList
 import com.absut.newsapiclient.domain.util.Resource
-import retrofit2.Response
 
 interface ISRORepository {
 
