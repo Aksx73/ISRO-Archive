@@ -36,19 +36,22 @@
         android:visibility="gone"
         android:orientation="vertical">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="No internet connection"
             android:gravity="center"
-            android:maxWidth="180dp"
-            android:textAppearance="?textAppearanceTitleLarge"
-            android:fontFamily="sans-serif-black"/>
+            android:layout_marginHorizontal="54dp"
+            android:fontFamily="@font/roboto_mono_medium"
+            android:textStyle="bold"
+            android:textAppearance="?textAppearanceTitleLarge" />
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:maxWidth="180dp"
+            android:layout_marginHorizontal="54dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/roboto_mono_regular"
             android:text="Go online and try again"
             android:textAppearance="?textAppearanceLabelLarge"
             android:textColor="?android:attr/textColorSecondary"/>
@@ -59,6 +62,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:gravity="center"
+            android:textStyle="bold"
+            android:paddingVertical="16dp"
+            android:paddingHorizontal="36dp"
+            android:textAppearance="@style/Theme.Toolbar.Title.TextAppearance"
             style="@style/Widget.Material3.Button.TonalButton"
             android:text="Retry"/>
     </LinearLayout>

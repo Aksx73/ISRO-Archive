@@ -1,6 +1,7 @@
 package com.absut.isro.archive.ui.spacecraft
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -38,6 +39,7 @@ class SpacecraftFragment : Fragment() {
 
         setupRecyclerView()
         getSpacecrafts()
+
     }
 
     private fun getSpacecrafts() {
@@ -66,7 +68,7 @@ class SpacecraftFragment : Fragment() {
                 }
                 is Resource.NoConnection -> {
                     binding.emptyState.visibility = View.VISIBLE
-                    binding.btRetry.setOnClickListener{
+                    binding.btRetry.setOnClickListener {
                         viewModel.getSpacecrafts()
                     }
                 }

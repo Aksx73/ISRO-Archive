@@ -23,6 +23,9 @@ class ISROViewModel(
     val customerSatellites: MutableLiveData<Resource<CustomerSatelliteList>> = MutableLiveData()
     val centers: MutableLiveData<Resource<CenterList>> = MutableLiveData()
 
+   /* private val _spacecraftList = mutableListOf<Spacecraft>()
+    val spacecraftList: List<Spacecraft> = _spacecraftList*/
+
 
     fun getSpacecrafts() = viewModelScope.launch {
         spacecrafts.postValue(Resource.Loading())
@@ -31,6 +34,9 @@ class ISROViewModel(
                 val response = getSpacecraftUseCase.execute()
                 if (response.data !=null){
                     spacecrafts.postValue(response)
+                  /*  _spacecraftList.clear()
+                    _spacecraftList.addAll(response.data.spacecrafts)*/
+                    //todo get data from local database
                 }
             }else{
                 spacecrafts.postValue(Resource.NoConnection())
