@@ -3,10 +3,7 @@ package com.absut.isro.archive.ui.viewmodel
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.absut.isro.archive.domain.usecase.GetCentersUseCase
-import com.absut.isro.archive.domain.usecase.GetCustomerSatellitesUseCase
-import com.absut.isro.archive.domain.usecase.GetLaunchersUseCase
-import com.absut.isro.archive.domain.usecase.GetSpacecraftUseCase
+import com.absut.isro.archive.domain.usecase.*
 
 @Suppress("UNCHECKED_CAST")
 class ISROViewModelFactory(

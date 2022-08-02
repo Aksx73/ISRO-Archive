@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.SpacecraftFragment">
+    tools:context=".ui.spacecraft.SpacecraftFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -28,4 +28,39 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/emptyState"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No internet connection"
+            android:gravity="center"
+            android:maxWidth="180dp"
+            android:textAppearance="?textAppearanceTitleLarge"
+            android:fontFamily="sans-serif-black"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:maxWidth="180dp"
+            android:layout_marginTop="8dp"
+            android:text="Go online and try again"
+            android:textAppearance="?textAppearanceLabelLarge"
+            android:textColor="?android:attr/textColorSecondary"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/bt_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            style="@style/Widget.Material3.Button.TonalButton"
+            android:text="Retry"/>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

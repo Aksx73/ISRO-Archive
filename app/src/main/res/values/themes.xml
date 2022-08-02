@@ -3,7 +3,13 @@
     <style name="Base.Theme.ISROArchive" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:fontFamily">@font/roboto_mono_regular</item>
     </style>
 
     <style name="Theme.ISROArchive" parent="Base.Theme.ISROArchive" />
+
+    <style name="Theme.Toolbar.Title.TextAppearance" parent="TextAppearance.Material3.ActionBar.Title">
+        <item name="fontFamily">@font/roboto_mono_medium</item>
+        <item name="android:fontFamily">@font/roboto_mono_medium</item>
+    </style>
 </resources>

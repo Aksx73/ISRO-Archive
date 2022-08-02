@@ -16,6 +16,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:fontFamily="@font/roboto_mono_regular"
             android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintBottom_toTopOf="@+id/txt_name"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
@@ -30,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:textAppearance="?textAppearanceTitleLarge"
-
+            android:fontFamily="@font/roboto_mono_medium"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             tools:text="Chandigarh"
+            android:fontFamily="@font/roboto_mono_medium"
             android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,6 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             tools:text="Punjab/Haryana"
+            android:fontFamily="@font/roboto_mono_medium"
             android:textAppearance="?textAppearanceBodyMedium"
             app:layout_constraintEnd_toStartOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +73,7 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_satellite_black_24dp"
+            app:srcCompat="@drawable/ic_hub_black_24dp"
             app:tint="?colorSurfaceVariant" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/HomeFragment"
-        android:name="com.absut.isro.archive.ui.fragment.HomeFragment"
+        android:name="com.absut.isro.archive.ui.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home">
         <action
@@ -25,8 +25,8 @@
     </fragment>
     <fragment
         android:id="@+id/spacecraftFragment"
-        android:name="com.absut.isro.archive.ui.fragment.SpacecraftFragment"
-        android:label="Spacecraft"
+        android:name="com.absut.isro.archive.ui.spacecraft.SpacecraftFragment"
+        android:label="@string/spacecraft_label"
         tools:layout="@layout/fragment_spacecraft" >
         <action
             android:id="@+id/action_spacecraftFragment_to_HomeFragment"
@@ -34,8 +34,8 @@
     </fragment>
     <fragment
         android:id="@+id/launchersFragment"
-        android:name="com.absut.isro.archive.ui.fragment.LaunchersFragment"
-        android:label="Launchers"
+        android:name="com.absut.isro.archive.ui.launcher.LaunchersFragment"
+        android:label="@string/launchers_label"
         tools:layout="@layout/fragment_launchers" >
         <action
             android:id="@+id/action_launchersFragment_to_HomeFragment"
@@ -43,8 +43,8 @@
     </fragment>
     <fragment
         android:id="@+id/customerSatellitesFragment"
-        android:name="com.absut.isro.archive.ui.fragment.CustomerSatellitesFragment"
-        android:label="Customer Satellites"
+        android:name="com.absut.isro.archive.ui.satellite.CustomerSatellitesFragment"
+        android:label="@string/customer_satellite_label"
         tools:layout="@layout/fragment_customer_satellites" >
         <action
             android:id="@+id/action_customerSatellitesFragment_to_HomeFragment"
@@ -52,8 +52,8 @@
     </fragment>
     <fragment
         android:id="@+id/centersFragment"
-        android:name="com.absut.isro.archive.ui.fragment.CentersFragment"
-        android:label="Centers"
+        android:name="com.absut.isro.archive.ui.centres.CentersFragment"
+        android:label="@string/centres_label"
         tools:layout="@layout/fragment_centers" >
         <action
             android:id="@+id/action_centersFragment_to_HomeFragment"

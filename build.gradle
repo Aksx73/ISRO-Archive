@@ -4,6 +4,8 @@ buildscript {
         navigation_component_version = '2.5.1'
         retrofit_version = "2.9.0"
         hilt_version = "2.42"
+        room_version = "2.4.2"
+        lifecycle_version = "2.6.0-alpha01"
 
     }
 
