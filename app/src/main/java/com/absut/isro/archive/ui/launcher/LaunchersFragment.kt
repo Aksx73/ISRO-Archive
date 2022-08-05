@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.absut.isro.archive.databinding.FragmentLaunchersBinding
@@ -12,7 +15,9 @@ import com.absut.isro.archive.ui.MainActivity
 import com.absut.isro.archive.ui.adapter.LauncherAdapter
 import com.absut.isro.archive.ui.viewmodel.ISROViewModel
 import com.absut.isro.archive.utils.Resource
+import com.absut.isro.archive.utils.State
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 class LaunchersFragment : Fragment() {
 
@@ -38,37 +43,33 @@ class LaunchersFragment : Fragment() {
 
         setupRecyclerView()
         getLaunchers()
+        collectLaunchers()
 
     }
 
-    private fun getLaunchers() {
-        viewModel.getLaunchers()
-        viewModel.launchers.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Success -> {
-                    binding.emptyState.visibility = View.GONE
-                    hideProgress()
-                    it.data?.let { launcherList ->
-                        adapterLauncher.differ.submitList(launcherList.launchers.toList())
-                    }
-                }
-                is Resource.Loading -> {
-                    binding.emptyState.visibility = View.GONE
-                    showProgress()
-                }
-                is Resource.Error -> {
-                    binding.emptyState.visibility = View.GONE
-                    hideProgress()
-                    Snackbar.make(
-                        binding.recyclerView,
-                        it.message.toString(),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
-                is Resource.NoConnection -> {
-                    binding.emptyState.visibility = View.VISIBLE
-                    binding.btRetry.setOnClickListener{
-                        viewModel.getLaunchers()
+    private fun getLaunchers() = viewModel.getLaunchers()
+
+    private fun collectLaunchers() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.launchers.collect { state ->
+                    when (state) {
+                        is State.Error -> {
+                            binding.emptyState.visibility = View.GONE
+                            hideProgress()
+                            Snackbar.make(binding.recyclerView, state.message, Snackbar.LENGTH_SHORT).show()
+                        }
+                        is State.Loading -> {
+                            binding.emptyState.visibility = View.GONE
+                            showProgress()
+                        }
+                        is State.Success -> {
+                            if (state.data.isNotEmpty()) {
+                                adapterLauncher.differ.submitList(state.data.toMutableList())
+                                binding.emptyState.visibility = View.GONE
+                                hideProgress()
+                            }
+                        }
                     }
                 }
             }

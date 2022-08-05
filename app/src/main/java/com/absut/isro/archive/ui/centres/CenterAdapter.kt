@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.absut.isro.archive.data.remote.model.Centre
+import com.absut.isro.archive.data.model.Centre
 import com.absut.isro.archive.databinding.CenterListItemBinding
 
 /** Right implementation**/

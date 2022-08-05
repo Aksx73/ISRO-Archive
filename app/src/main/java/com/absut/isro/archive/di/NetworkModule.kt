@@ -2,8 +2,7 @@ package com.absut.isro.archive.di
 
 import com.absut.isro.archive.BuildConfig
 
-import com.absut.isro.archive.data.remote.ISROApi
-import com.absut.isro.archive.utils.Constants
+import com.absut.isro.archive.data.remote.api.ISROApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,7 +26,7 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun providesISROApiService(retrofit: Retrofit):ISROApi{
+    fun providesISROApiService(retrofit: Retrofit): ISROApi {
         return retrofit.create(ISROApi::class.java)
     }
 

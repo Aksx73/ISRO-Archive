@@ -1,57 +1,70 @@
 package com.absut.isro.archive.data.repository
 
 import android.util.Log
-import com.absut.isro.archive.data.remote.ISROApi
-import com.absut.isro.archive.data.remote.model.*
+import com.absut.isro.archive.data.local.dao.CentresDao
+import com.absut.isro.archive.data.local.dao.LauncherDao
+import com.absut.isro.archive.data.local.dao.SatellitesDao
+import com.absut.isro.archive.data.local.dao.SpacecraftDao
+import com.absut.isro.archive.data.model.*
+import com.absut.isro.archive.data.remote.api.ISROApi
 import com.absut.isro.archive.domain.repository.ISRORepository
 import com.absut.isro.archive.utils.Resource
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import retrofit2.HttpException
 import retrofit2.Response
-import java.io.IOException
 
-class ISRORepositoryImpl(private val isroApi: ISROApi) : ISRORepository {
+@ExperimentalCoroutinesApi
+class ISRORepositoryImpl(
+    private val isroApi: ISROApi,
+    private val spacecraftDao: SpacecraftDao,
+    private val launcherDao: LauncherDao,
+    private val satellitesDao: SatellitesDao,
+    private val centresDao: CentresDao
+) : ISRORepository {
 
-    override suspend fun getSpacecrafts(): Resource<SpacecraftList> {
-         return responseToResource(isroApi.getSpacecrafts())
+    override suspend fun getSpacecrafts(): Flow<Resource<List<Spacecraft>>> {
+        return object : NetworkBoundRepository<List<Spacecraft>, SpacecraftList>() {
+
+            override suspend fun saveRemoteData(response: SpacecraftList) = spacecraftDao.addSpacecrafts(response.spacecrafts)
+
+            override fun fetchFromLocal(): Flow<List<Spacecraft>> = spacecraftDao.getSpacecrafts()
+
+            override suspend fun fetchFromRemote(): Response<SpacecraftList> = isroApi.getSpacecrafts()
+        }.asFlow()
     }
 
-    override suspend fun getLaunchers(): Resource<LauncherList> {
-          return responseToResource(isroApi.getLaunchers())
+    override suspend fun getLaunchers(): Flow<Resource<List<Launcher>>> {
+        return object : NetworkBoundRepository<List<Launcher>, LauncherList>() {
+
+            override suspend fun saveRemoteData(response: LauncherList) = launcherDao.addLaunchers(response.launchers)
+
+            override fun fetchFromLocal(): Flow<List<Launcher>> = launcherDao.getLaunchers()
+
+            override suspend fun fetchFromRemote(): Response<LauncherList> = isroApi.getLaunchers()
+        }.asFlow()
     }
 
-    override suspend fun getCustomerSatellites(): Resource<CustomerSatelliteList> {
-         return responseToResource(isroApi.getCustomerSatellites())
+    override suspend fun getCustomerSatellites(): Flow<Resource<List<CustomerSatellite>>> {
+       return object : NetworkBoundRepository<List<CustomerSatellite>,CustomerSatelliteList>(){
+
+           override suspend fun saveRemoteData(response: CustomerSatelliteList) = satellitesDao.addSatellites(response.customerSatellites)
+
+           override fun fetchFromLocal(): Flow<List<CustomerSatellite>> = satellitesDao.getSatellites()
+
+           override suspend fun fetchFromRemote(): Response<CustomerSatelliteList> = isroApi.getCustomerSatellites()
+       }.asFlow()
     }
 
-    override suspend fun getCenters(): Resource<CenterList> {
-         return responseToResource(isroApi.getCentres())
+    override suspend fun getCenters(): Flow<Resource<List<Centre>>> {
+        return object : NetworkBoundRepository<List<Centre>,CenterList>(){
+
+            override suspend fun saveRemoteData(response: CenterList) = centresDao.addCentres(response.centres)
+
+            override fun fetchFromLocal(): Flow<List<Centre>> = centresDao.getCentres()
+
+            override suspend fun fetchFromRemote(): Response<CenterList> = isroApi.getCentres()
+        }.asFlow()
     }
-
-
-    suspend fun getSpacecraftsFromAPI(): List<Spacecraft> {
-        lateinit var spacecraftList: List<Spacecraft>
-        try {
-            val response = isroApi.getSpacecrafts()
-            if (response.isSuccessful){
-                val body = response.body()
-                body?.let {
-                    spacecraftList = body.spacecrafts
-
-                    //todo save data to local database
-                    //todo
-                }
-
-            }
-
-
-        } catch (e: Exception) {
-            Log.i("TAG", e.message.toString())
-        }
-        return spacecraftList
-    }
-
 
 
 
@@ -59,15 +72,16 @@ class ISRORepositoryImpl(private val isroApi: ISROApi) : ISRORepository {
      * Function which returns $Resource type for state management(loading/error/success) from
      * retrofit api response
      * */
+/*
     private fun <T : Any> responseToResource(response: Response<T>): Resource<T> {
         if (response.isSuccessful) {
             response.body()?.let {
-                //todo save data to local database
-                //todo
                 return Resource.Success(it)
             }
         }
         return Resource.Error(response.message())
     }
+*/
+
 
 }

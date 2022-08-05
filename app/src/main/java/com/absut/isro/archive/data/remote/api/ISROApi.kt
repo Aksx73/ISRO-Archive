@@ -1,9 +1,9 @@
-package com.absut.isro.archive.data.remote
+package com.absut.isro.archive.data.remote.api
 
-import com.absut.isro.archive.data.remote.model.CenterList
-import com.absut.isro.archive.data.remote.model.CustomerSatelliteList
-import com.absut.isro.archive.data.remote.model.LauncherList
-import com.absut.isro.archive.data.remote.model.SpacecraftList
+import com.absut.isro.archive.data.model.CenterList
+import com.absut.isro.archive.data.model.CustomerSatelliteList
+import com.absut.isro.archive.data.model.LauncherList
+import com.absut.isro.archive.data.model.SpacecraftList
 import retrofit2.Response
 import retrofit2.http.GET
 

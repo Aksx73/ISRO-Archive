@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.absut.isro.archive.data.remote.model.Launcher
-import com.absut.isro.archive.data.remote.model.Spacecraft
+import com.absut.isro.archive.data.model.Launcher
+import com.absut.isro.archive.data.model.Spacecraft
 import com.absut.isro.archive.databinding.LauncherListItemBinding
 import com.absut.isro.archive.databinding.SpacecraftListItemBinding
 
@@ -42,7 +42,7 @@ class LauncherAdapter() : RecyclerView.Adapter<LauncherViewHolder>() {
 class LauncherViewHolder(val binding: LauncherListItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
     fun bind(launcher: Launcher) {
-        binding.txtName.text = launcher.id
+        binding.txtName.text = launcher.name
     }
 }
 

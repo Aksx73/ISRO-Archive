@@ -2,11 +2,12 @@ package com.absut.isro.archive.ui.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.absut.isro.archive.data.remote.model.*
+import com.absut.isro.archive.data.model.*
 import com.absut.isro.archive.domain.usecase.*
 import com.absut.isro.archive.utils.Connectivity
 import com.absut.isro.archive.utils.Resource
-import kotlinx.coroutines.flow.onEach
+import com.absut.isro.archive.utils.State
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 
@@ -18,79 +19,140 @@ class ISROViewModel(
     private val getCustomerSatellitesUseCase: GetCustomerSatellitesUseCase
 ) : AndroidViewModel(app) {
 
-    val spacecrafts: MutableLiveData<Resource<SpacecraftList>> = MutableLiveData()
-    val launchers: MutableLiveData<Resource<LauncherList>> = MutableLiveData()
-    val customerSatellites: MutableLiveData<Resource<CustomerSatelliteList>> = MutableLiveData()
-    val centers: MutableLiveData<Resource<CenterList>> = MutableLiveData()
+    /* val spacecrafts: MutableLiveData<Resource<SpacecraftList>> = MutableLiveData()
+     val launchers: MutableLiveData<Resource<LauncherList>> = MutableLiveData()
+     val customerSatellites: MutableLiveData<Resource<CustomerSatelliteList>> = MutableLiveData()
+     val centers: MutableLiveData<Resource<CenterList>> = MutableLiveData()*/
 
-   /* private val _spacecraftList = mutableListOf<Spacecraft>()
-    val spacecraftList: List<Spacecraft> = _spacecraftList*/
+    /**
+     * Spacecrafts
+     */
+    private val _spacecrafts: MutableStateFlow<State<List<Spacecraft>>> = MutableStateFlow(State.loading())
+    val spacecrafts: StateFlow<State<List<Spacecraft>>> = _spacecrafts
 
-
-    fun getSpacecrafts() = viewModelScope.launch {
-        spacecrafts.postValue(Resource.Loading())
-        try {
-            if(Connectivity.isNetworkAvailable(app)) {
-                val response = getSpacecraftUseCase.execute()
-                if (response.data !=null){
-                    spacecrafts.postValue(response)
-                  /*  _spacecraftList.clear()
-                    _spacecraftList.addAll(response.data.spacecrafts)*/
-                    //todo get data from local database
+    fun getSpacecrafts() {
+        viewModelScope.launch {
+            getSpacecraftUseCase.execute()
+                .map { resource ->
+                    State.fromResource(resource)
+                }.collect { state ->
+                    _spacecrafts.value = state
                 }
-            }else{
-                spacecrafts.postValue(Resource.NoConnection())
-            }
-        } catch (e: Exception) {
-            spacecrafts.postValue(Resource.Error(e.message.toString()))
         }
     }
+
+    /**
+     * Launchers
+     */
+    private val _launchers: MutableStateFlow<State<List<Launcher>>> = MutableStateFlow(State.loading())
+    val launchers: StateFlow<State<List<Launcher>>> = _launchers
 
     fun getLaunchers() = viewModelScope.launch {
-        launchers.postValue(Resource.Loading())
-        try {
-            if(Connectivity.isNetworkAvailable(app)) {
-                val response = getLaunchersUseCase.execute()
-                launchers.postValue(response)
-            }else{
-                launchers.postValue(Resource.NoConnection())
-                //todo get data from local database
+        getLaunchersUseCase.execute()
+            .map { response ->
+                State.fromResource(response)
+            }.collect { state ->
+                _launchers.value = state
             }
-        } catch (e: Exception) {
-            launchers.postValue(Resource.Error(e.message.toString()))
-        }
     }
 
-
-    fun getCenters() = viewModelScope.launch {
-        centers.postValue(Resource.Loading())
-        try {
-            if(Connectivity.isNetworkAvailable(app)) {
-                val response = getCentersUseCase.execute()
-                centers.postValue(response)
-            }else{
-                centers.postValue(Resource.NoConnection())
-                //todo get data from local database
-            }
-        } catch (e: Exception) {
-            centers.postValue(Resource.Error(e.message.toString()))
-        }
-    }
+    /**
+     * Customer_Satellites
+     */
+    private val _customerSatellites:MutableStateFlow<State<List<CustomerSatellite>>> = MutableStateFlow(State.loading())
+    val customerSatellites : StateFlow<State<List<CustomerSatellite>>> = _customerSatellites
 
     fun getCustomerSatellites() = viewModelScope.launch {
-        customerSatellites.postValue(Resource.Loading())
-        try {
-            if(Connectivity.isNetworkAvailable(app)) {
-                val response = getCustomerSatellitesUseCase.execute()
-                customerSatellites.postValue(response)
-            }else{
-                customerSatellites.postValue(Resource.NoConnection())
-                //todo get data from local database
+        getCustomerSatellitesUseCase.execute()
+            .map { response ->
+                State.fromResource(response)
+            }.collect { state ->
+                _customerSatellites.value = state
             }
-        } catch (e: Exception) {
-            customerSatellites.postValue(Resource.Error(e.message.toString()))
-        }
     }
 
+    /**
+     * Centres
+     */
+    private val _centres:MutableStateFlow<State<List<Centre>>> = MutableStateFlow(State.loading())
+    val centres : StateFlow<State<List<Centre>>> = _centres
+
+    fun getCentres() = viewModelScope.launch {
+        getCentersUseCase.execute()
+            .map { response ->
+                State.fromResource(response)
+            }.collect { state ->
+                _centres.value = state
+            }
+    }
+
+
+
+
+    /*  fun getSpacecrafts() = viewModelScope.launch {
+          spacecrafts.postValue(Resource.Loading())
+          try {
+              if(Connectivity.isNetworkAvailable(app)) {
+                  val response = getSpacecraftUseCase.execute()
+                  if (response.data !=null){
+                      spacecrafts.postValue(response)
+                    /*  _spacecraftList.clear()
+                      _spacecraftList.addAll(response.data.spacecrafts)*/
+                      //todo get data from local database
+                  }
+              }else{
+                  spacecrafts.postValue(Resource.NoConnection())
+              }
+          } catch (e: Exception) {
+              spacecrafts.postValue(Resource.Error(e.message.toString()))
+          }
+      }
+
+      fun getLaunchers() = viewModelScope.launch {
+          launchers.postValue(Resource.Loading())
+          try {
+              if(Connectivity.isNetworkAvailable(app)) {
+                  val response = getLaunchersUseCase.execute()
+                  launchers.postValue(response)
+              }else{
+                  launchers.postValue(Resource.NoConnection())
+                  //todo get data from local database
+              }
+          } catch (e: Exception) {
+              launchers.postValue(Resource.Error(e.message.toString()))
+          }
+      }
+
+
+      fun getCenters() = viewModelScope.launch {
+          centers.postValue(Resource.Loading())
+          try {
+              if(Connectivity.isNetworkAvailable(app)) {
+                  val response = getCentersUseCase.execute()
+                  centers.postValue(response)
+              }else{
+                  centers.postValue(Resource.NoConnection())
+                  //todo get data from local database
+              }
+          } catch (e: Exception) {
+              centers.postValue(Resource.Error(e.message.toString()))
+          }
+      }
+
+      fun getCustomerSatellites() = viewModelScope.launch {
+          customerSatellites.postValue(Resource.Loading())
+          try {
+              if(Connectivity.isNetworkAvailable(app)) {
+                  val response = getCustomerSatellitesUseCase.execute()
+                  customerSatellites.postValue(response)
+              }else{
+                  customerSatellites.postValue(Resource.NoConnection())
+                  //todo get data from local database
+              }
+          } catch (e: Exception) {
+              customerSatellites.postValue(Resource.Error(e.message.toString()))
+          }
+      }
+  */
 
 }

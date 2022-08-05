@@ -5,13 +5,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.absut.isro.archive.databinding.FragmentCustomerSatellitesBinding
 import com.absut.isro.archive.ui.MainActivity
 import com.absut.isro.archive.ui.viewmodel.ISROViewModel
 import com.absut.isro.archive.utils.Resource
+import com.absut.isro.archive.utils.State
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 class CustomerSatellitesFragment : Fragment() {
 
@@ -35,38 +40,34 @@ class CustomerSatellitesFragment : Fragment() {
         viewModel = (activity as MainActivity).viewModel
 
         initRecyclerView()
-        getSatellites()
+        getCustomerSatellites()
+        collectSatellites()
 
     }
 
-    private fun getSatellites() {
-        viewModel.getCustomerSatellites()
-        viewModel.customerSatellites.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Success -> {
-                    binding.emptyState.visibility = View.GONE
-                    hideProgress()
-                    it.data?.let { satelliteList ->
-                        adapterSatellite.submitList(satelliteList.customerSatellites.toList())
-                    }
-                }
-                is Resource.Error -> {
-                    binding.emptyState.visibility = View.GONE
-                    hideProgress()
-                    Snackbar.make(
-                        binding.recyclerView,
-                        it.message.toString(),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
-                is Resource.Loading -> {
-                    binding.emptyState.visibility = View.GONE
-                    showProgress()
-                }
-                is Resource.NoConnection -> {
-                    binding.emptyState.visibility = View.VISIBLE
-                    binding.btRetry.setOnClickListener{
-                        viewModel.getCustomerSatellites()
+    private fun getCustomerSatellites() = viewModel.getCustomerSatellites()
+
+    private fun collectSatellites() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.customerSatellites.collect { state ->
+                    when (state) {
+                        is State.Error -> {
+                            binding.emptyState.visibility = View.GONE
+                            hideProgress()
+                            Snackbar.make(binding.recyclerView, state.message, Snackbar.LENGTH_SHORT).show()
+                        }
+                        is State.Loading -> {
+                            binding.emptyState.visibility = View.GONE
+                            showProgress()
+                        }
+                        is State.Success -> {
+                            if (state.data.isNotEmpty()) {
+                                adapterSatellite.submitList(state.data.toMutableList())
+                                binding.emptyState.visibility = View.GONE
+                                hideProgress()
+                            }
+                        }
                     }
                 }
             }

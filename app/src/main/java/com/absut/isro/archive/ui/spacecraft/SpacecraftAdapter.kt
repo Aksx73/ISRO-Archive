@@ -5,8 +5,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.absut.isro.archive.data.remote.model.Spacecraft
-import com.absut.isro.archive.data.remote.model.SpacecraftList
+import com.absut.isro.archive.data.model.Spacecraft
+import com.absut.isro.archive.data.model.SpacecraftList
 import com.absut.isro.archive.databinding.SpacecraftListItemBinding
 
 class SpacecraftAdapter() : ListAdapter<Spacecraft, SpacecraftViewHolder>(DiffCallback()) {

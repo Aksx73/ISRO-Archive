@@ -1,4 +1,4 @@
-package com.absut.isro.archive.data.remote.model
+package com.absut.isro.archive.data.model
 
 
 import com.google.gson.annotations.SerializedName

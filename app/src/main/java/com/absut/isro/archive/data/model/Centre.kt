@@ -1,4 +1,4 @@
-package com.absut.isro.archive.data.remote.model
+package com.absut.isro.archive.data.model
 
 
 import androidx.room.Entity
@@ -6,17 +6,19 @@ import androidx.room.OnConflictStrategy
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "centres")
 data class Centre(
 
+    @PrimaryKey(autoGenerate = false)
     @SerializedName("id")
-    val id: Int,
+    val id: Int?,
 
     @SerializedName("name")
-    val name: String,
+    val name: String?,
 
     @SerializedName("Place")
-    val place: String,
+    val place: String?,
 
     @SerializedName("State")
-    val state: String
+    val state: String?
 )

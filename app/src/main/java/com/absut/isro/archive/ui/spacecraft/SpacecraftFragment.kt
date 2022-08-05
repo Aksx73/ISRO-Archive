@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.absut.isro.archive.databinding.FragmentSpacecraftBinding
@@ -11,7 +14,9 @@ import com.absut.isro.archive.ui.MainActivity
 import com.absut.isro.archive.ui.adapter.SpacecraftAdapter
 import com.absut.isro.archive.ui.viewmodel.ISROViewModel
 import com.absut.isro.archive.utils.Resource
+import com.absut.isro.archive.utils.State
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 
 
 class SpacecraftFragment : Fragment() {
@@ -37,11 +42,53 @@ class SpacecraftFragment : Fragment() {
 
         viewModel = (activity as MainActivity).viewModel
 
-        setupRecyclerView()
+        initViews()
         getSpacecrafts()
+        collectSpacecrafts()
 
     }
 
+    private fun initViews() {
+        adapterSpacecraft = SpacecraftAdapter()
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(activity)
+            adapter = adapterSpacecraft
+            itemAnimator = DefaultItemAnimator()
+        }
+    }
+
+
+    private fun collectSpacecrafts() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.spacecrafts.collect { state ->
+                    when (state) {
+                        is State.Error -> {
+                            binding.emptyState.visibility = View.GONE
+                            hideProgress()
+                            Snackbar.make(binding.recyclerView, state.message, Snackbar.LENGTH_SHORT).show()
+                        }
+                        is State.Loading -> {
+                            binding.emptyState.visibility = View.GONE
+                            showProgress()
+                        }
+                        is State.Success -> {
+                            if (state.data.isNotEmpty()) {
+                                adapterSpacecraft.submitList(state.data.toMutableList())
+                                binding.emptyState.visibility = View.GONE
+                                hideProgress()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getSpacecrafts() = viewModel.getSpacecrafts()
+
+
+/*
     private fun getSpacecrafts() {
         viewModel.getSpacecrafts()
         viewModel.spacecrafts.observe(viewLifecycleOwner) {
@@ -76,15 +123,8 @@ class SpacecraftFragment : Fragment() {
         }
 
     }
+*/
 
-    private fun setupRecyclerView() {
-        adapterSpacecraft = SpacecraftAdapter()
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(activity)
-            adapter = adapterSpacecraft
-            itemAnimator = DefaultItemAnimator()
-        }
-    }
 
     private fun showProgress() {
         binding.progressCircular.visibility = View.VISIBLE

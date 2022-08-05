@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 
-import com.absut.isro.archive.data.remote.model.CustomerSatellite
+import com.absut.isro.archive.data.model.CustomerSatellite
 import com.absut.isro.archive.databinding.SatelliteListItemBinding
 
 /** Right implementation**/
@@ -32,7 +32,7 @@ class CustomerSatelliteAdapter :
 
         fun bind(satellite: CustomerSatellite) {
             binding.apply {
-                txtName.text = satellite.id
+                txtName.text = satellite.name
                 txtCountry.text = satellite.country
                 txtLaunchDate.text = satellite.launchDate
                 txtMass.text = satellite.mass
