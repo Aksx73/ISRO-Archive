@@ -7,11 +7,13 @@ import com.absut.isro.archive.domain.usecase.*
 import com.absut.isro.archive.utils.Connectivity
 import com.absut.isro.archive.utils.Resource
 import com.absut.isro.archive.utils.State
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-
-class ISROViewModel(
+@HiltViewModel
+class ISROViewModel @Inject constructor(
     private val app: Application,
     private val getSpacecraftUseCase: GetSpacecraftUseCase,
     private val getLaunchersUseCase: GetLaunchersUseCase,
@@ -27,7 +29,8 @@ class ISROViewModel(
     /**
      * Spacecrafts
      */
-    private val _spacecrafts: MutableStateFlow<State<List<Spacecraft>>> = MutableStateFlow(State.loading())
+    private val _spacecrafts: MutableStateFlow<State<List<Spacecraft>>> =
+        MutableStateFlow(State.loading())
     val spacecrafts: StateFlow<State<List<Spacecraft>>> = _spacecrafts
 
     fun getSpacecrafts() {
@@ -44,7 +47,8 @@ class ISROViewModel(
     /**
      * Launchers
      */
-    private val _launchers: MutableStateFlow<State<List<Launcher>>> = MutableStateFlow(State.loading())
+    private val _launchers: MutableStateFlow<State<List<Launcher>>> =
+        MutableStateFlow(State.loading())
     val launchers: StateFlow<State<List<Launcher>>> = _launchers
 
     fun getLaunchers() = viewModelScope.launch {
@@ -59,8 +63,9 @@ class ISROViewModel(
     /**
      * Customer_Satellites
      */
-    private val _customerSatellites:MutableStateFlow<State<List<CustomerSatellite>>> = MutableStateFlow(State.loading())
-    val customerSatellites : StateFlow<State<List<CustomerSatellite>>> = _customerSatellites
+    private val _customerSatellites: MutableStateFlow<State<List<CustomerSatellite>>> =
+        MutableStateFlow(State.loading())
+    val customerSatellites: StateFlow<State<List<CustomerSatellite>>> = _customerSatellites
 
     fun getCustomerSatellites() = viewModelScope.launch {
         getCustomerSatellitesUseCase.execute()
@@ -74,8 +79,8 @@ class ISROViewModel(
     /**
      * Centres
      */
-    private val _centres:MutableStateFlow<State<List<Centre>>> = MutableStateFlow(State.loading())
-    val centres : StateFlow<State<List<Centre>>> = _centres
+    private val _centres: MutableStateFlow<State<List<Centre>>> = MutableStateFlow(State.loading())
+    val centres: StateFlow<State<List<Centre>>> = _centres
 
     fun getCentres() = viewModelScope.launch {
         getCentersUseCase.execute()
@@ -85,8 +90,6 @@ class ISROViewModel(
                 _centres.value = state
             }
     }
-
-
 
 
     /*  fun getSpacecrafts() = viewModelScope.launch {
