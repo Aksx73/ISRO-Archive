@@ -3,7 +3,7 @@
 
 ***You can Install and test latest build from below 👇***
 
-[![ISRO-Archive](https://img.shields.io/badge/ISRO--Archive-APK-red?style=for-the-badge&logo=android)](url_link_for_apk)
+[![ISRO-Archive](https://img.shields.io/badge/ISRO--Archive-APK-red?style=for-the-badge&logo=android)](https://github.com/Aksx73/ISRO-Archive/raw/master/app/release/app-release.apk)
 
 
 ## About
