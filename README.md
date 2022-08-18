@@ -38,7 +38,7 @@ App follows clean architecture pattern (MVVM + Usecases). Whole app is organized
     |   |── model           # Model classes
     |   └── repository      # Repository implementation
     |
-    ├── domain              # Model classes
+    ├── domain              # Domain layer
     |   |── usecase         # Usescase classes
     |   └── repository      # Repository interface (Single source of data)
     |
