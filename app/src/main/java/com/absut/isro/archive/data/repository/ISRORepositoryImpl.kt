@@ -1,6 +1,5 @@
 package com.absut.isro.archive.data.repository
 
-import android.util.Log
 import com.absut.isro.archive.data.local.dao.CentresDao
 import com.absut.isro.archive.data.local.dao.LauncherDao
 import com.absut.isro.archive.data.local.dao.SatellitesDao
@@ -23,7 +22,7 @@ class ISRORepositoryImpl(
 ) : ISRORepository {
 
     override suspend fun getSpacecrafts(): Flow<Resource<List<Spacecraft>>> {
-        return object : NetworkBoundRepository<List<Spacecraft>, SpacecraftList>() {
+        return object : NetworkBoundResource<List<Spacecraft>, SpacecraftList>() {
 
             override suspend fun saveRemoteData(response: SpacecraftList) = spacecraftDao.addSpacecrafts(response.spacecrafts)
 
@@ -34,7 +33,7 @@ class ISRORepositoryImpl(
     }
 
     override suspend fun getLaunchers(): Flow<Resource<List<Launcher>>> {
-        return object : NetworkBoundRepository<List<Launcher>, LauncherList>() {
+        return object : NetworkBoundResource<List<Launcher>, LauncherList>() {
 
             override suspend fun saveRemoteData(response: LauncherList) = launcherDao.addLaunchers(response.launchers)
 
@@ -45,7 +44,7 @@ class ISRORepositoryImpl(
     }
 
     override suspend fun getCustomerSatellites(): Flow<Resource<List<CustomerSatellite>>> {
-       return object : NetworkBoundRepository<List<CustomerSatellite>,CustomerSatelliteList>(){
+       return object : NetworkBoundResource<List<CustomerSatellite>,CustomerSatelliteList>(){
 
            override suspend fun saveRemoteData(response: CustomerSatelliteList) = satellitesDao.addSatellites(response.customerSatellites)
 
@@ -56,7 +55,7 @@ class ISRORepositoryImpl(
     }
 
     override suspend fun getCenters(): Flow<Resource<List<Centre>>> {
-        return object : NetworkBoundRepository<List<Centre>,CenterList>(){
+        return object : NetworkBoundResource<List<Centre>,CenterList>(){
 
             override suspend fun saveRemoteData(response: CenterList) = centresDao.addCentres(response.centres)
 

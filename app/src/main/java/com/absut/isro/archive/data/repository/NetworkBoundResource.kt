@@ -38,11 +38,11 @@ import retrofit2.Response
  * [REQUEST] represents the type for network.
  */
 @ExperimentalCoroutinesApi
-abstract class NetworkBoundRepository<RESULT, REQUEST> {
+abstract class NetworkBoundResource<RESULT, REQUEST> {
 
     fun asFlow() = flow<Resource<RESULT>> {
 
-        // Emit Database content first
+        // Emit Database content first (.first is like collecting from flow but it return value for only one time)
         emit(Resource.Success(fetchFromLocal().first()))
 
         // Fetch latest posts from remote
