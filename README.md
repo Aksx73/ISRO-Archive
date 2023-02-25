@@ -5,6 +5,8 @@
 
 [![ISRO-Archive](https://img.shields.io/badge/ISRO--Archive-APK-red?style=for-the-badge&logo=android)](https://github.com/Aksx73/ISRO-Archive/raw/master/app/release/app-release.apk)
 
+[![Screenshot-20230225-100549.png](https://i.postimg.cc/W3qxg7zN/Screenshot-20230225-100549.png)](https://postimg.cc/LYRyMLjw)
+[![Screenshot-20230225-100620.png](https://i.postimg.cc/pd6gmS2c/Screenshot-20230225-100620.png)](https://postimg.cc/bG16M3S1)
 
 ## About
 
