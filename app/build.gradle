@@ -7,6 +7,7 @@ plugins {
 }
 
 android {
+    namespace 'com.absut.isro.archive'
     compileSdk 34
 
     defaultConfig {
@@ -15,9 +16,7 @@ android {
         targetSdk 34
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
         buildConfigField("String", "BASE_URL", BASE_URL)
     }
 
@@ -39,6 +38,7 @@ android {
     }
 
     buildFeatures {
+        buildConfig = true
         viewBinding true
         compose true
     }
@@ -46,7 +46,6 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.14"
     }
-    namespace 'com.absut.isro.archive'
 }
 
 dependencies {
