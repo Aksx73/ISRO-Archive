@@ -181,14 +181,20 @@ class HomeFragment : Fragment() {
               findNavController().navigate(R.id.action_HomeFragment_to_spacecraftFragment)
           }
 
-        binding.cardCustomerSatellites.setOnClickListener {
-            findNavController().navigate(R.id.action_HomeFragment_to_customerSatellitesFragment)
-        }
+          binding.cardCustomerSatellites.setOnClickListener {
+              findNavController().navigate(R.id.action_HomeFragment_to_customerSatellitesFragment)
+          }*/
 
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
+    @Composable
+    fun DefaultPreview() {
+        HomeScreen()
     }
 }
