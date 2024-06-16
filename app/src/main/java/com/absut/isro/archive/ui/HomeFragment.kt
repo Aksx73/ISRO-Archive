@@ -202,6 +202,14 @@ class HomeFragment : Fragment() {
 
     @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
     @Composable
+    fun DefaultPreviewNight() {
+        AppTheme {
+            HomeScreen()
+        }
+    }
+
+    @Preview(showBackground = true, showSystemUi = true)
+    @Composable
     fun DefaultPreview() {
         AppTheme {
             HomeScreen()
