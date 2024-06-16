@@ -1,7 +1,9 @@
 package com.absut.isro.archive.ui
 
+import android.content.Context
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,19 +29,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.UiMode
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.fragment.findNavController
 import com.absut.isro.archive.R
 import com.absut.isro.archive.databinding.FragmentHomeBinding
+import com.example.compose.AppTheme
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -77,7 +84,7 @@ class HomeFragment : Fragment() {
             // Dispose of the Composition when the view's LifecycleOwner is destroyed
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
-                MaterialTheme {
+                AppTheme {
                     HomeScreen()
                 }
             }
@@ -144,15 +151,16 @@ class HomeFragment : Fragment() {
                 ) {
                     Text(
                         text = stringResource(title),
-                        style = MaterialTheme.typography.headlineSmall,
-                        fontFamily = FontFamily(Font(R.font.roboto_mono_medium))
+                        style = MaterialTheme.typography.titleMedium,   
+                        fontSize = 20.sp,
+                        fontFamily = FontFamily(Font(R.font.roboto_mono_medium)),
                     )
                     Text(
                         text = stringResource(desc),
                         modifier = Modifier.padding(top = 8.dp),
                         maxLines = 3,
-                        fontFamily = FontFamily(Font(R.font.roboto_mono_regular)),
-                        fontWeight = FontWeight.Normal
+                        overflow = TextOverflow.Ellipsis,
+                        fontFamily = FontFamily(Font(R.font.roboto_mono_regular))
                     )
                 }
                 Image(
@@ -195,6 +203,8 @@ class HomeFragment : Fragment() {
     @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
     @Composable
     fun DefaultPreview() {
-        HomeScreen()
+        AppTheme {
+            HomeScreen()
+        }
     }
 }
