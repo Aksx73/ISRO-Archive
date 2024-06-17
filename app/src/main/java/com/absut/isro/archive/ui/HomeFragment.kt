@@ -64,20 +64,18 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        /*_binding = FragmentHomeBinding.inflate(inflater, container, false)
+       // _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        binding.composeView.apply {
-            // Dispose of the Composition when the view's LifecycleOwner
-            // is destroyed
+       /* binding.composeView.apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
                 MaterialTheme {
                     ComposeContent()
                 }
             }
-        }
+        }*/
 
-        return binding.root*/
+       // return binding.root
 
 
         return ComposeView(requireContext()).apply {
@@ -88,7 +86,6 @@ class HomeFragment : Fragment() {
                     HomeScreen()
                 }
             }
-
         }
 
 
@@ -136,8 +133,8 @@ class HomeFragment : Fragment() {
     ) {
         Surface(
             shape = Shapes().small,
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outline),
-            color = MaterialTheme.colorScheme.surface,
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+            color = MaterialTheme.colorScheme.primaryContainer,
             onClick = clickListener
         ) {
             Row(
@@ -147,7 +144,7 @@ class HomeFragment : Fragment() {
                 Column(
                     modifier = Modifier
                         .weight(1f)
-                        .padding(end = 8.dp)
+                        .padding(end = 12.dp)
                 ) {
                     Text(
                         text = stringResource(title),
@@ -160,6 +157,7 @@ class HomeFragment : Fragment() {
                         modifier = Modifier.padding(top = 8.dp),
                         maxLines = 3,
                         overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.bodyMedium,
                         fontFamily = FontFamily(Font(R.font.roboto_mono_regular))
                     )
                 }

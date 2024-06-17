@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".ui.HomeFragment">
 
-  <!--  <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -16,6 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
+            style="@style/Widget.Material3.CardView.Outlined"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -237,14 +238,12 @@
         </com.google.android.material.card.MaterialCardView>
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    </androidx.constraintlayout.widget.ConstraintLayout>-->
-
-    <androidx.compose.ui.platform.ComposeView
+ <!--   <androidx.compose.ui.platform.ComposeView
         android:id="@+id/compose_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"/>-->
 
 
 </androidx.core.widget.NestedScrollView>
