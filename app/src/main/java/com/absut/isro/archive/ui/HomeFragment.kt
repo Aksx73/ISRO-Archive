@@ -100,25 +100,34 @@ class HomeFragment : Fragment() {
                 title = R.string.spacecraft_label,
                 desc = R.string.spacecraft_desc,
                 image = R.drawable.ic_rocket_black_24dp
-            )
+            ){
+                findNavController().navigate(R.id.action_HomeFragment_to_spacecraftFragment)
+            }
             Spacer(modifier = Modifier.height(12.dp))
             ContentView(
                 title = R.string.launchers_label,
                 desc = R.string.launchers_desc,
                 image = R.drawable.ic_rocket_launch_black_24dp
-            )
+            ){
+                findNavController().navigate(R.id.action_HomeFragment_to_launchersFragment)
+            }
             Spacer(modifier = Modifier.height(12.dp))
             ContentView(
                 title = R.string.customer_satellite_label,
                 desc = R.string.customer_satellite_desc,
                 image = R.drawable.ic_satellite_black_24dp
             )
+            {
+                findNavController().navigate(R.id.action_HomeFragment_to_customerSatellitesFragment)
+            }
             Spacer(modifier = Modifier.height(12.dp))
             ContentView(
                 title = R.string.centres_label,
                 desc = R.string.centres_desc,
                 image = R.drawable.ic_hub_black_24dp
-            )
+            ){
+                findNavController().navigate(R.id.action_HomeFragment_to_centersFragment)   
+            }
         }
 
     }
