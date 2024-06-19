@@ -141,6 +141,7 @@ class HomeFragment : Fragment() {
         clickListener: () -> Unit = {}
     ) {
         Surface(
+            modifier = modifier,
             shape = Shapes().small,
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
             color = MaterialTheme.colorScheme.primaryContainer,
