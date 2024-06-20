@@ -1,20 +1,44 @@
 package com.absut.isro.archive.ui.spacecraft
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.UiMode
+import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.absut.isro.archive.R
 import com.absut.isro.archive.databinding.FragmentSpacecraftBinding
 import com.absut.isro.archive.ui.MainActivity
 import com.absut.isro.archive.ui.adapter.SpacecraftAdapter
 import com.absut.isro.archive.ui.viewmodel.ISROViewModel
 import com.absut.isro.archive.utils.Resource
 import com.absut.isro.archive.utils.State
+import com.example.compose.AppTheme
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
@@ -66,12 +90,18 @@ class SpacecraftFragment : Fragment() {
                         is State.Error -> {
                             binding.emptyState.visibility = View.GONE
                             hideProgress()
-                            Snackbar.make(binding.recyclerView, state.message, Snackbar.LENGTH_SHORT).show()
+                            Snackbar.make(
+                                binding.recyclerView,
+                                state.message,
+                                Snackbar.LENGTH_SHORT
+                            ).show()
                         }
+
                         is State.Loading -> {
                             binding.emptyState.visibility = View.GONE
                             showProgress()
                         }
+
                         is State.Success -> {
                             if (state.data.isNotEmpty()) {
                                 adapterSpacecraft.submitList(state.data.toMutableList())
@@ -139,60 +169,54 @@ class SpacecraftFragment : Fragment() {
         _binding = null
     }
 
+    @Composable
+    fun SpacecraftListItem(modifier: Modifier = Modifier) {
+        Surface(
+            modifier = modifier.fillMaxWidth(),
+            shape = Shapes().small,
+            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
+            //color = MaterialTheme.colorScheme.surface
+        ) {
+            Row(
+                modifier = Modifier.padding(16.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(
+                        text = "1",
+                        Modifier
+                            .padding(end = 8.dp)
+                            .fillMaxWidth(),
+                        style = MaterialTheme.typography.bodyLarge,
+                        fontFamily = FontFamily(Font(R.font.roboto_mono_regular))
+                    )
+                    Text(
+                        text = "Aryabhata",
+                        Modifier
+                            .padding(end = 8.dp)
+                            .fillMaxWidth(),
+                        style = MaterialTheme.typography.titleLarge,
+                        fontFamily = FontFamily(Font(R.font.roboto_mono_medium))
+                    )
+                }
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_rocket_black_24dp),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .height(72.dp)
+                        .width(72.dp)
+                )
+            }
+        }
+    }
 
-    /*  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-          inflater.inflate(R.menu.layout_menu, menu)
-
-          val layoutButton = menu.findItem(R.id.action_switch_layout)
-          setIcon(layoutButton)
-      }
-
-      /**
-       * Sets the LayoutManager for the [RecyclerView] based on the desired orientation of the list.
-       *
-       * Notice that because the enclosing class has changed from an Activity to a Fragment,
-       * the signature of the LayoutManagers has to slightly change.
-       */
-      private fun chooseLayout() {
-          if (isLinearLayoutManager) {
-              recyclerView.layoutManager = LinearLayoutManager(context)
-          } else {
-              recyclerView.layoutManager = GridLayoutManager(context, 4)
-          }
-          recyclerView.adapter = LetterAdapter()
-      }
-
-      private fun setIcon(menuItem: MenuItem?) {
-          if (menuItem == null)
-              return
-
-          menuItem.icon =
-              if (isLinearLayoutManager)
-                  ContextCompat.getDrawable(this.requireContext(), R.drawable.ic_grid_layout)
-              else ContextCompat.getDrawable(this.requireContext(), R.drawable.ic_linear_layout)
-      }
-
-      /**
-       * Determines how to handle interactions with the selected [MenuItem]
-       */
-      override fun onOptionsItemSelected(item: MenuItem): Boolean {
-          return when (item.itemId) {
-              R.id.action_switch_layout -> {
-                  // Sets isLinearLayoutManager (a Boolean) to the opposite value
-                  isLinearLayoutManager = !isLinearLayoutManager
-                  // Sets layout and icon
-                  chooseLayout()
-                  setIcon(item)
-
-                  return true
-              }
-              // Otherwise, do nothing and use the core event handling
-
-              // when clauses require that all possible paths be accounted for explicitly,
-              // for instance both the true and false cases if the value is a Boolean,
-              // or an else to catch all unhandled cases.
-              else -> super.onOptionsItemSelected(item)
-          }
-      }*/
+    @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL)
+    @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
+    @Composable
+    private fun SpacecraftListItemPreview() {
+        AppTheme {
+            SpacecraftListItem()
+        }
+    }
 
 }
