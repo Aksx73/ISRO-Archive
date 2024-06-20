@@ -5,12 +5,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
@@ -32,6 +37,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.absut.isro.archive.R
+import com.absut.isro.archive.data.model.Spacecraft
 import com.absut.isro.archive.databinding.FragmentSpacecraftBinding
 import com.absut.isro.archive.ui.MainActivity
 import com.absut.isro.archive.ui.adapter.SpacecraftAdapter
@@ -132,9 +138,28 @@ class SpacecraftFragment : Fragment() {
     }
 
     @Composable
-    fun SpacecraftListItem(modifier: Modifier = Modifier) {
+    fun SpacecraftScreen(modifier: Modifier = Modifier, list: List<Spacecraft>) {
+
         Surface(
-            modifier = modifier.fillMaxWidth(),
+            modifier = modifier,
+            color = MaterialTheme.colorScheme.surface
+        ) {
+            LazyColumn(
+                contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
+            ) {
+                items(list) {
+                    SpacecraftListItem(item = it)
+                }
+            }
+        }
+    }
+
+    @Composable
+    fun SpacecraftListItem(modifier: Modifier = Modifier, item: Spacecraft) {
+        Surface(
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
             shape = Shapes().small,
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
             //color = MaterialTheme.colorScheme.surface
@@ -145,7 +170,7 @@ class SpacecraftFragment : Fragment() {
             ) {
                 Column(modifier = Modifier.weight(1f)) {
                     Text(
-                        text = "1",
+                        text = item.id.toString(),
                         Modifier
                             .padding(end = 8.dp)
                             .fillMaxWidth(),
@@ -153,7 +178,7 @@ class SpacecraftFragment : Fragment() {
                         fontFamily = FontFamily(Font(R.font.roboto_mono_regular))
                     )
                     Text(
-                        text = "Aryabhata",
+                        text = item.name.toString(),
                         Modifier
                             .padding(end = 8.dp)
                             .fillMaxWidth(),
@@ -177,7 +202,15 @@ class SpacecraftFragment : Fragment() {
     @Composable
     private fun SpacecraftListItemPreview() {
         AppTheme {
-            SpacecraftListItem()
+            SpacecraftListItem(item = Spacecraft(1, "Aryabhata"))
+        }
+    }
+
+    @Preview
+    @Composable
+    private fun SpacecraftScreenPreview() {
+        AppTheme {
+            SpacecraftScreen(list = List(20) { Spacecraft(it, "Spacecraft $it") })
         }
     }
 
