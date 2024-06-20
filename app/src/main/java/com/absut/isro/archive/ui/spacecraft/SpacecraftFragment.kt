@@ -118,44 +118,6 @@ class SpacecraftFragment : Fragment() {
     private fun getSpacecrafts() = viewModel.getSpacecrafts()
 
 
-/*
-    private fun getSpacecrafts() {
-        viewModel.getSpacecrafts()
-        viewModel.spacecrafts.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Success -> {
-                    binding.emptyState.visibility = View.GONE
-                    hideProgress()
-                    it.data?.let { spacecraftList ->
-                        adapterSpacecraft.submitList(spacecraftList.spacecrafts.toList())
-                    }
-                }
-                is Resource.Loading -> {
-                    binding.emptyState.visibility = View.GONE
-                    showProgress()
-                }
-                is Resource.Error -> {
-                    binding.emptyState.visibility = View.GONE
-                    hideProgress()
-                    Snackbar.make(
-                        binding.recyclerView,
-                        it.message.toString(),
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                }
-                is Resource.NoConnection -> {
-                    binding.emptyState.visibility = View.VISIBLE
-                    binding.btRetry.setOnClickListener {
-                        viewModel.getSpacecrafts()
-                    }
-                }
-            }
-        }
-
-    }
-*/
-
-
     private fun showProgress() {
         binding.progressCircular.visibility = View.VISIBLE
     }
