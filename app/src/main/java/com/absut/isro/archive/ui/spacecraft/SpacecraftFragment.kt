@@ -139,7 +139,6 @@ class SpacecraftFragment : Fragment() {
 
     @Composable
     fun SpacecraftScreen(modifier: Modifier = Modifier, list: List<Spacecraft>) {
-
         Surface(
             modifier = modifier,
             color = MaterialTheme.colorScheme.surface
