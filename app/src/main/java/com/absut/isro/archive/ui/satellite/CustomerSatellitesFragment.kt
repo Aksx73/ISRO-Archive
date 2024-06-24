@@ -198,7 +198,7 @@ class CustomerSatellitesFragment : Fragment() {
 
                 }
                 Icon(
-                    painter = painterResource(id = R.drawable.ic_rocket_black_24dp),
+                    painter = painterResource(id = R.drawable.ic_satellite_black_24dp),
                     contentDescription = null,
                     tint = MaterialTheme.colorScheme.surfaceVariant,
                     modifier = Modifier
