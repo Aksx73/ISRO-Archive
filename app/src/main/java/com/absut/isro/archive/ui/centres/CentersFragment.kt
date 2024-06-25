@@ -217,7 +217,7 @@ class CentersFragment : Fragment() {
     @Composable
     private fun CentersScreenPreview() {
         AppTheme {
-            CentersScreen(list = List(20) { Centre(it, "Center $it","Place $it","State $it") })
+            CentersScreen(list = List(20) { Centre(it, "Center $it","Place $it","State name $it") })
         }
     }
 
