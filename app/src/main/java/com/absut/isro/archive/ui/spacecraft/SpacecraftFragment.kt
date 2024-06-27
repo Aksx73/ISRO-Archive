@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
@@ -16,6 +18,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
@@ -24,6 +28,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
@@ -64,12 +69,11 @@ class SpacecraftFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View {
         /* _binding = FragmentSpacecraftBinding.inflate(inflater, container, false)
          return binding.root*/
 
-        getSpacecrafts()
+        viewModel.getSpacecrafts()
         return ComposeView(requireContext()).apply {
             setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
             setContent {
@@ -157,23 +161,26 @@ class SpacecraftFragment : Fragment() {
             modifier = modifier,
             color = MaterialTheme.colorScheme.surface
         ) {
-            LazyColumn(
-                contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
-            ) {
-                when (spacecrafts) {
-                    is State.Loading -> {}
-                    is State.Success -> {
+            when (spacecrafts) {
+                is State.Loading -> {
+                    ProgressView()
+                }
+
+                is State.Success -> {
+                    LazyColumn(
+                        contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
+                    ) {
                         items(spacecrafts.data) {
                             SpacecraftListItem(item = it)
                         }
                     }
-
-                    is State.Error -> {}
                 }
 
-                /* items(list) {
-                     SpacecraftListItem(item = it)
-                 }*/
+                is State.Error -> {
+                    ErrorView() {
+                        viewModel.getSpacecrafts()
+                    }
+                }
             }
         }
     }
@@ -222,6 +229,31 @@ class SpacecraftFragment : Fragment() {
         }
     }
 
+    @Composable
+    fun ProgressView(modifier: Modifier = Modifier) {
+        Box(
+            modifier = modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator(
+                color = MaterialTheme.colorScheme.primary
+            )
+        }
+    }
+
+    @Composable
+    fun ErrorView(modifier: Modifier = Modifier, onButtonClick: () -> Unit) {
+        Column(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(text = "Something went wrong", style = MaterialTheme.typography.bodyMedium)
+            Button(onClick = onButtonClick, modifier = Modifier.padding(top = 16.dp)) {
+                Text(text = "Retry")
+            }
+        }
+    }
+
     @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL)
     @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
     @Composable
@@ -229,6 +261,18 @@ class SpacecraftFragment : Fragment() {
         AppTheme {
             SpacecraftListItem(item = Spacecraft(1, "Aryabhata"))
         }
+    }
+
+    @Preview
+    @Composable
+    private fun LoadingPreview() {
+        ProgressView()
+    }
+
+    @Preview
+    @Composable
+    private fun ErrorPreview() {
+        ErrorView(){ }
     }
 
     @Preview
