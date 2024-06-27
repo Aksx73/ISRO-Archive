@@ -1,6 +1,9 @@
 package com.absut.isro.archive.ui.viewmodel
 
 import android.app.Application
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.*
 import com.absut.isro.archive.data.model.*
 import com.absut.isro.archive.domain.usecase.*
@@ -29,17 +32,21 @@ class ISROViewModel @Inject constructor(
     /**
      * Spacecrafts
      */
-    private val _spacecrafts: MutableStateFlow<State<List<Spacecraft>>> =
-        MutableStateFlow(State.loading())
-    val spacecrafts: StateFlow<State<List<Spacecraft>>> = _spacecrafts
+   // private val _spacecrafts: MutableStateFlow<State<List<Spacecraft>>> = MutableStateFlow(State.loading())
+    //val spacecrafts: StateFlow<State<List<Spacecraft>>> = _spacecrafts
+
+    var spacecrafts by mutableStateOf<State<List<Spacecraft>>>(State.loading())
+        private set
 
     fun getSpacecrafts() {
         viewModelScope.launch {
+            spacecrafts = State.loading()
             getSpacecraftUseCase.execute()
                 .map { resource ->
                     State.fromResource(resource)
                 }.collect { state ->
-                    _spacecrafts.value = state
+                   // _spacecrafts.value = state
+                    spacecrafts = state
                 }
         }
     }

@@ -24,6 +24,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -31,6 +33,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.UiMode
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -54,7 +57,7 @@ class SpacecraftFragment : Fragment() {
     private var _binding: FragmentSpacecraftBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: ISROViewModel
+    private val viewModel: ISROViewModel by activityViewModels()
     private lateinit var adapterSpacecraft: SpacecraftAdapter
 
 
@@ -63,11 +66,21 @@ class SpacecraftFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentSpacecraftBinding.inflate(inflater, container, false)
-        return binding.root
+        /* _binding = FragmentSpacecraftBinding.inflate(inflater, container, false)
+         return binding.root*/
+
+        getSpacecrafts()
+        return ComposeView(requireContext()).apply {
+            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+            setContent {
+                AppTheme {
+                    SpacecraftScreen()
+                }
+            }
+        }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    /*override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = (activity as MainActivity).viewModel
@@ -75,8 +88,7 @@ class SpacecraftFragment : Fragment() {
         initViews()
         getSpacecrafts()
         collectSpacecrafts()
-
-    }
+    }*/
 
     private fun initViews() {
         adapterSpacecraft = SpacecraftAdapter()
@@ -88,7 +100,7 @@ class SpacecraftFragment : Fragment() {
     }
 
 
-    private fun collectSpacecrafts() {
+    /*private fun collectSpacecrafts() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.spacecrafts.collect { state ->
@@ -119,7 +131,7 @@ class SpacecraftFragment : Fragment() {
                 }
             }
         }
-    }
+    }*/
 
     private fun getSpacecrafts() = viewModel.getSpacecrafts()
 
@@ -138,7 +150,9 @@ class SpacecraftFragment : Fragment() {
     }
 
     @Composable
-    fun SpacecraftScreen(modifier: Modifier = Modifier, list: List<Spacecraft>) {
+    fun SpacecraftScreen(modifier: Modifier = Modifier) {
+        val spacecrafts = viewModel.spacecrafts
+
         Surface(
             modifier = modifier,
             color = MaterialTheme.colorScheme.surface
@@ -146,9 +160,20 @@ class SpacecraftFragment : Fragment() {
             LazyColumn(
                 contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
             ) {
-                items(list) {
-                    SpacecraftListItem(item = it)
+                when (spacecrafts) {
+                    is State.Loading -> {}
+                    is State.Success -> {
+                        items(spacecrafts.data) {
+                            SpacecraftListItem(item = it)
+                        }
+                    }
+
+                    is State.Error -> {}
                 }
+
+                /* items(list) {
+                     SpacecraftListItem(item = it)
+                 }*/
             }
         }
     }
@@ -210,7 +235,7 @@ class SpacecraftFragment : Fragment() {
     @Composable
     private fun SpacecraftScreenPreview() {
         AppTheme {
-            SpacecraftScreen(list = List(20) { Spacecraft(it, "Spacecraft $it") })
+            //SpacecraftScreen(list = List(20) { Spacecraft(it, "Spacecraft $it") })
         }
     }
 
