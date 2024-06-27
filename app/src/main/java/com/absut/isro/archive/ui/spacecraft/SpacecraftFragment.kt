@@ -59,11 +59,11 @@ import kotlinx.coroutines.launch
 
 class SpacecraftFragment : Fragment() {
 
-    private var _binding: FragmentSpacecraftBinding? = null
-    private val binding get() = _binding!!
+    /*private var _binding: FragmentSpacecraftBinding? = null
+    private val binding get() = _binding!!*/
 
     private val viewModel: ISROViewModel by activityViewModels()
-    private lateinit var adapterSpacecraft: SpacecraftAdapter
+    //private lateinit var adapterSpacecraft: SpacecraftAdapter
 
 
     override fun onCreateView(
@@ -92,7 +92,7 @@ class SpacecraftFragment : Fragment() {
         initViews()
         getSpacecrafts()
         collectSpacecrafts()
-    }*/
+    }
 
     private fun initViews() {
         adapterSpacecraft = SpacecraftAdapter()
@@ -103,8 +103,7 @@ class SpacecraftFragment : Fragment() {
         }
     }
 
-
-    /*private fun collectSpacecrafts() {
+    private fun collectSpacecrafts() {
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.spacecrafts.collect { state ->
@@ -135,7 +134,7 @@ class SpacecraftFragment : Fragment() {
                 }
             }
         }
-    }*/
+    }
 
     private fun getSpacecrafts() = viewModel.getSpacecrafts()
 
@@ -146,11 +145,11 @@ class SpacecraftFragment : Fragment() {
 
     private fun hideProgress() {
         binding.progressCircular.visibility = View.INVISIBLE
-    }
+    }*/
 
     override fun onDestroy() {
         super.onDestroy()
-        _binding = null
+       // _binding = null
     }
 
     @Composable
