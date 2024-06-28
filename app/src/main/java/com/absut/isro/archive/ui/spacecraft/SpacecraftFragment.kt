@@ -49,6 +49,8 @@ import com.absut.isro.archive.data.model.Spacecraft
 import com.absut.isro.archive.databinding.FragmentSpacecraftBinding
 import com.absut.isro.archive.ui.MainActivity
 import com.absut.isro.archive.ui.adapter.SpacecraftAdapter
+import com.absut.isro.archive.ui.common.ErrorView
+import com.absut.isro.archive.ui.common.ProgressView
 import com.absut.isro.archive.ui.viewmodel.ISROViewModel
 import com.absut.isro.archive.utils.Resource
 import com.absut.isro.archive.utils.State
@@ -224,31 +226,6 @@ class SpacecraftFragment : Fragment() {
                         .height(72.dp)
                         .width(72.dp)
                 )
-            }
-        }
-    }
-
-    @Composable
-    fun ProgressView(modifier: Modifier = Modifier) {
-        Box(
-            modifier = modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator(
-                color = MaterialTheme.colorScheme.primary
-            )
-        }
-    }
-
-    @Composable
-    fun ErrorView(modifier: Modifier = Modifier, onButtonClick: () -> Unit) {
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(text = "Something went wrong", style = MaterialTheme.typography.bodyMedium)
-            Button(onClick = onButtonClick, modifier = Modifier.padding(top = 16.dp)) {
-                Text(text = "Retry")
             }
         }
     }
