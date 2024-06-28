@@ -178,7 +178,7 @@ class SpacecraftFragment : Fragment() {
                 }
 
                 is State.Error -> {
-                    ErrorView() {
+                    ErrorView(text = spacecrafts.message) {
                         viewModel.getSpacecrafts()
                     }
                 }
