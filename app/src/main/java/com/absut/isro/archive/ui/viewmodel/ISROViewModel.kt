@@ -54,16 +54,15 @@ class ISROViewModel @Inject constructor(
     /**
      * Launchers
      */
-    private val _launchers: MutableStateFlow<State<List<Launcher>>> =
-        MutableStateFlow(State.loading())
-    val launchers: StateFlow<State<List<Launcher>>> = _launchers
+    var launchers by mutableStateOf<State<List<Launcher>>>(State.loading())
+        private set
 
     fun getLaunchers() = viewModelScope.launch {
         getLaunchersUseCase.execute()
             .map { response ->
                 State.fromResource(response)
             }.collect { state ->
-                _launchers.value = state
+                launchers = state
             }
     }
 
