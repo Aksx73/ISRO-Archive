@@ -24,11 +24,6 @@ class ISROViewModel @Inject constructor(
     private val getCustomerSatellitesUseCase: GetCustomerSatellitesUseCase
 ) : AndroidViewModel(app) {
 
-    /* val spacecrafts: MutableLiveData<Resource<SpacecraftList>> = MutableLiveData()
-     val launchers: MutableLiveData<Resource<LauncherList>> = MutableLiveData()
-     val customerSatellites: MutableLiveData<Resource<CustomerSatelliteList>> = MutableLiveData()
-     val centers: MutableLiveData<Resource<CenterList>> = MutableLiveData()*/
-
     /**
      * Spacecrafts
      */
