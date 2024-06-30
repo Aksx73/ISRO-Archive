@@ -27,7 +27,7 @@ class ISROViewModel @Inject constructor(
     /**
      * Spacecrafts
      */
-   // private val _spacecrafts: MutableStateFlow<State<List<Spacecraft>>> = MutableStateFlow(State.loading())
+    // private val _spacecrafts: MutableStateFlow<State<List<Spacecraft>>> = MutableStateFlow(State.loading())
     //val spacecrafts: StateFlow<State<List<Spacecraft>>> = _spacecrafts
 
     var spacecrafts by mutableStateOf<State<List<Spacecraft>>>(State.loading())
@@ -40,7 +40,7 @@ class ISROViewModel @Inject constructor(
                 .map { resource ->
                     State.fromResource(resource)
                 }.collect { state ->
-                   // _spacecrafts.value = state
+                    // _spacecrafts.value = state
                     spacecrafts = state
                 }
         }
@@ -64,99 +64,33 @@ class ISROViewModel @Inject constructor(
     /**
      * Customer_Satellites
      */
-    private val _customerSatellites: MutableStateFlow<State<List<CustomerSatellite>>> =
-        MutableStateFlow(State.loading())
-    val customerSatellites: StateFlow<State<List<CustomerSatellite>>> = _customerSatellites
+
+    var customerSatellites by mutableStateOf<State<List<CustomerSatellite>>>(State.loading())
+        private set
 
     fun getCustomerSatellites() = viewModelScope.launch {
         getCustomerSatellitesUseCase.execute()
             .map { response ->
                 State.fromResource(response)
             }.collect { state ->
-                _customerSatellites.value = state
+                customerSatellites = state
             }
     }
 
     /**
      * Centres
      */
-    private val _centres: MutableStateFlow<State<List<Centre>>> = MutableStateFlow(State.loading())
-    val centres: StateFlow<State<List<Centre>>> = _centres
+
+    var centres by mutableStateOf<State<List<Centre>>>(State.loading())
+        private set
 
     fun getCentres() = viewModelScope.launch {
         getCentersUseCase.execute()
             .map { response ->
                 State.fromResource(response)
             }.collect { state ->
-                _centres.value = state
+                centres = state
             }
     }
-
-
-    /*  fun getSpacecrafts() = viewModelScope.launch {
-          spacecrafts.postValue(Resource.Loading())
-          try {
-              if(Connectivity.isNetworkAvailable(app)) {
-                  val response = getSpacecraftUseCase.execute()
-                  if (response.data !=null){
-                      spacecrafts.postValue(response)
-                    /*  _spacecraftList.clear()
-                      _spacecraftList.addAll(response.data.spacecrafts)*/
-                      //todo get data from local database
-                  }
-              }else{
-                  spacecrafts.postValue(Resource.NoConnection())
-              }
-          } catch (e: Exception) {
-              spacecrafts.postValue(Resource.Error(e.message.toString()))
-          }
-      }
-
-      fun getLaunchers() = viewModelScope.launch {
-          launchers.postValue(Resource.Loading())
-          try {
-              if(Connectivity.isNetworkAvailable(app)) {
-                  val response = getLaunchersUseCase.execute()
-                  launchers.postValue(response)
-              }else{
-                  launchers.postValue(Resource.NoConnection())
-                  //todo get data from local database
-              }
-          } catch (e: Exception) {
-              launchers.postValue(Resource.Error(e.message.toString()))
-          }
-      }
-
-
-      fun getCenters() = viewModelScope.launch {
-          centers.postValue(Resource.Loading())
-          try {
-              if(Connectivity.isNetworkAvailable(app)) {
-                  val response = getCentersUseCase.execute()
-                  centers.postValue(response)
-              }else{
-                  centers.postValue(Resource.NoConnection())
-                  //todo get data from local database
-              }
-          } catch (e: Exception) {
-              centers.postValue(Resource.Error(e.message.toString()))
-          }
-      }
-
-      fun getCustomerSatellites() = viewModelScope.launch {
-          customerSatellites.postValue(Resource.Loading())
-          try {
-              if(Connectivity.isNetworkAvailable(app)) {
-                  val response = getCustomerSatellitesUseCase.execute()
-                  customerSatellites.postValue(response)
-              }else{
-                  customerSatellites.postValue(Resource.NoConnection())
-                  //todo get data from local database
-              }
-          } catch (e: Exception) {
-              customerSatellites.postValue(Resource.Error(e.message.toString()))
-          }
-      }
-  */
 
 }
