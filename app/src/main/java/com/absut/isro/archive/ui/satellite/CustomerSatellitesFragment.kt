@@ -74,6 +74,7 @@ class CustomerSatellitesFragment : Fragment() {
     @Composable
     fun SatelliteScreen(modifier: Modifier = Modifier) {
         val satellite = viewModel.customerSatellites
+
         Surface(
             modifier = modifier,
             color = MaterialTheme.colorScheme.surface
@@ -95,7 +96,7 @@ class CustomerSatellitesFragment : Fragment() {
 
                 is State.Error -> {
                     ErrorView(text = satellite.message) {
-                        viewModel.getSpacecrafts()
+                        viewModel.getCustomerSatellites()
                     }
                 }
             }
