@@ -24,11 +24,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -39,6 +42,8 @@ import com.absut.isro.archive.data.model.CustomerSatellite
 import com.absut.isro.archive.data.model.Spacecraft
 import com.absut.isro.archive.databinding.FragmentCustomerSatellitesBinding
 import com.absut.isro.archive.ui.MainActivity
+import com.absut.isro.archive.ui.common.ErrorView
+import com.absut.isro.archive.ui.common.ProgressView
 import com.absut.isro.archive.ui.viewmodel.ISROViewModel
 import com.absut.isro.archive.utils.Resource
 import com.absut.isro.archive.utils.State
@@ -48,93 +53,50 @@ import kotlinx.coroutines.launch
 
 class CustomerSatellitesFragment : Fragment() {
 
-    private var _binding: FragmentCustomerSatellitesBinding? = null
-    private val binding get() = _binding!!
-
-    private lateinit var viewModel: ISROViewModel
-    private lateinit var adapterSatellite: CustomerSatelliteAdapter
+    private val viewModel: ISROViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCustomerSatellitesBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        viewModel = (activity as MainActivity).viewModel
-
-        initRecyclerView()
-        getCustomerSatellites()
-        collectSatellites()
-
-    }
-
-    private fun getCustomerSatellites() = viewModel.getCustomerSatellites()
-
-    private fun collectSatellites() {
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.customerSatellites.collect { state ->
-                    when (state) {
-                        is State.Error -> {
-                            binding.emptyState.visibility = View.GONE
-                            hideProgress()
-                            Snackbar.make(binding.recyclerView, state.message, Snackbar.LENGTH_SHORT).show()
-                        }
-                        is State.Loading -> {
-                            binding.emptyState.visibility = View.GONE
-                            showProgress()
-                        }
-                        is State.Success -> {
-                            if (state.data.isNotEmpty()) {
-                                adapterSatellite.submitList(state.data.toMutableList())
-                                binding.emptyState.visibility = View.GONE
-                                hideProgress()
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private fun initRecyclerView() {
-        adapterSatellite = CustomerSatelliteAdapter()
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(activity)
-            itemAnimator = DefaultItemAnimator()
-            adapter = adapterSatellite
-        }
-    }
-
-    private fun showProgress() {
-        binding.progressCircular.visibility = View.VISIBLE
-    }
-
-    private fun hideProgress() {
-        binding.progressCircular.visibility = View.INVISIBLE
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+        
+        viewModel.getCustomerSatellites()
+       return ComposeView(requireContext()).apply {
+           setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+           setContent {
+               AppTheme {
+                   SatelliteScreen()
+               }
+           }
+       }
     }
 
     @Composable
-    fun SatelliteScreen(modifier: Modifier = Modifier, list: List<CustomerSatellite>) {
+    fun SatelliteScreen(modifier: Modifier = Modifier) {
+        val satellite = viewModel.customerSatellites
         Surface(
             modifier = modifier,
             color = MaterialTheme.colorScheme.surface
         ) {
-            LazyColumn(
-                contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
-            ) {
-                items(list) {
-                    SatelliteListItem(item = it)
+            when (satellite) {
+                is State.Loading -> {
+                    ProgressView()
+                }
+
+                is State.Success -> {
+                    LazyColumn(
+                        contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
+                    ) {
+                        items(satellite.data) {
+                            SatelliteListItem(item = it)
+                        }
+                    }
+                }
+
+                is State.Error -> {
+                    ErrorView(text = satellite.message) {
+                        viewModel.getSpacecrafts()
+                    }
                 }
             }
         }
@@ -222,7 +184,7 @@ class CustomerSatellitesFragment : Fragment() {
     @Composable
     private fun SpacecraftScreenPreview() {
         AppTheme {
-            SatelliteScreen(list = List(20) { CustomerSatellite(1, "Germany","DLR-TUBSAT","26-05-1989","PSLV-C2","45") })
+            //SatelliteScreen(list = List(20) { CustomerSatellite(1, "Germany","DLR-TUBSAT","26-05-1989","PSLV-C2","45") })
         }
     }
 
