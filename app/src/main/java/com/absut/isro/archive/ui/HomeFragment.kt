@@ -144,7 +144,7 @@ class HomeFragment : Fragment() {
             modifier = modifier,
             shape = Shapes().small,
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-            color = MaterialTheme.colorScheme.primaryContainer,
+            color = MaterialTheme.colorScheme.surface,
             onClick = clickListener
         ) {
             Row(
