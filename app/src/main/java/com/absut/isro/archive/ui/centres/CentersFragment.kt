@@ -42,8 +42,8 @@ import com.absut.isro.archive.data.model.Centre
 import com.absut.isro.archive.data.model.Launcher
 import com.absut.isro.archive.databinding.FragmentCentersBinding
 import com.absut.isro.archive.ui.MainActivity
-import com.absut.isro.archive.ui.common.ErrorView
-import com.absut.isro.archive.ui.common.ProgressView
+import com.absut.isro.archive.ui.components.common.ErrorView
+import com.absut.isro.archive.ui.components.common.ProgressView
 import com.absut.isro.archive.ui.viewmodel.ISROViewModel
 import com.absut.isro.archive.utils.Resource
 import com.absut.isro.archive.utils.State
