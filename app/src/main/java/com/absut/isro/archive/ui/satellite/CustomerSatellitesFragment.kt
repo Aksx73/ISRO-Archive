@@ -32,24 +32,13 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.absut.isro.archive.R
 import com.absut.isro.archive.data.model.CustomerSatellite
-import com.absut.isro.archive.data.model.Spacecraft
-import com.absut.isro.archive.databinding.FragmentCustomerSatellitesBinding
-import com.absut.isro.archive.ui.MainActivity
-import com.absut.isro.archive.ui.components.common.ErrorView
-import com.absut.isro.archive.ui.components.common.ProgressView
+import com.absut.isro.archive.ui.components.ErrorView
+import com.absut.isro.archive.ui.components.ProgressView
 import com.absut.isro.archive.ui.viewmodel.ISROViewModel
-import com.absut.isro.archive.utils.Resource
 import com.absut.isro.archive.utils.State
 import com.example.compose.AppTheme
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.launch
 
 class CustomerSatellitesFragment : Fragment() {
 

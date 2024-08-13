@@ -2,24 +2,17 @@ package com.absut.isro.archive.ui.spacecraft
 
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
@@ -28,35 +21,22 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.UiMode
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.absut.isro.archive.R
 import com.absut.isro.archive.data.model.Spacecraft
-import com.absut.isro.archive.databinding.FragmentSpacecraftBinding
-import com.absut.isro.archive.ui.MainActivity
-import com.absut.isro.archive.ui.adapter.SpacecraftAdapter
-import com.absut.isro.archive.ui.components.common.ErrorView
-import com.absut.isro.archive.ui.components.common.ProgressView
+import com.absut.isro.archive.ui.components.ErrorView
+import com.absut.isro.archive.ui.components.ProgressView
 import com.absut.isro.archive.ui.viewmodel.ISROViewModel
-import com.absut.isro.archive.utils.Resource
 import com.absut.isro.archive.utils.State
 import com.example.compose.AppTheme
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.launch
 
 
 class SpacecraftFragment : Fragment() {
