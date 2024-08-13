@@ -1,4 +1,4 @@
-package com.absut.isro.archive.ui.components.common
+package com.absut.isro.archive.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
