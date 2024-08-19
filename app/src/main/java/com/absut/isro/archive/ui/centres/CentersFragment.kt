@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.activityViewModels
 import com.absut.isro.archive.R
 import com.absut.isro.archive.data.model.Centre
+import com.absut.isro.archive.ui.components.CenterListItem
 import com.absut.isro.archive.ui.components.ErrorView
 import com.absut.isro.archive.ui.components.ProgressView
 import com.absut.isro.archive.ui.viewmodel.ISROViewModel
@@ -92,82 +93,6 @@ class CentersFragment : Fragment() {
                 }
             }
 
-        }
-    }
-
-    @Composable
-    fun CenterListItem(modifier: Modifier = Modifier, item: Centre) {
-        Surface(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(vertical = 8.dp),
-            shape = Shapes().small,
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-            //color = MaterialTheme.colorScheme.surface
-        ) {
-            Row(
-                modifier = Modifier.padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column(modifier = Modifier.weight(1f)) {
-                    Text(
-                        text = item.id.toString(),
-                        Modifier
-                            .padding(end = 8.dp)
-                            .fillMaxWidth(),
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontFamily = FontFamily(Font(R.font.roboto_mono_regular))
-                    )
-                    Text(
-                        text = item.name.toString(),
-                        Modifier
-                            .padding(end = 8.dp)
-                            .fillMaxWidth(),
-                        style = MaterialTheme.typography.titleLarge,
-                        fontFamily = FontFamily(Font(R.font.roboto_mono_medium))
-                    )
-                    Text(
-                        text = item.place.toString(),
-                        Modifier
-                            .padding(end = 8.dp)
-                            .fillMaxWidth(),
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontFamily = FontFamily(Font(R.font.roboto_mono_medium))
-                    )
-                    Text(
-                        text = item.state.toString(),
-                        Modifier
-                            .padding(end = 8.dp)
-                            .fillMaxWidth(),
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontFamily = FontFamily(Font(R.font.roboto_mono_medium))
-                    )
-                }
-                Icon(
-                    painter = painterResource(id = R.drawable.ic_hub_black_24dp),
-                    contentDescription = null,
-                    tint = MaterialTheme.colorScheme.surfaceVariant,
-                    modifier = Modifier
-                        .height(72.dp)
-                        .width(72.dp)
-                )
-            }
-        }
-    }
-
-    @Preview(uiMode = Configuration.UI_MODE_NIGHT_NO or Configuration.UI_MODE_TYPE_NORMAL)
-    @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES or Configuration.UI_MODE_TYPE_NORMAL)
-    @Composable
-    private fun CenterListItemPreview() {
-        AppTheme {
-            CenterListItem(
-                item = Centre(
-                    1,
-                    "Semi-Conductor Laboratory (SCL)",
-                    "Chandigarh",
-                    "Punjab/Haryana"
-                )
-            )
         }
     }
 
