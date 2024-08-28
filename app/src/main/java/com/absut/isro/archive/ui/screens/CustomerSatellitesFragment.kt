@@ -20,7 +20,7 @@ import androidx.fragment.app.activityViewModels
 import com.absut.isro.archive.ui.components.ErrorView
 import com.absut.isro.archive.ui.components.ProgressView
 import com.absut.isro.archive.ui.components.SatelliteListItem
-import com.absut.isro.archive.ui.viewmodel.ISROViewModel
+import com.absut.isro.archive.ui.ISROViewModel
 import com.absut.isro.archive.utils.State
 import com.example.compose.AppTheme
 

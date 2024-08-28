@@ -1,4 +1,4 @@
-package com.absut.isro.archive.ui.viewmodel
+package com.absut.isro.archive.ui
 
 import android.app.Application
 import androidx.compose.runtime.getValue
@@ -7,8 +7,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.*
 import com.absut.isro.archive.data.model.*
 import com.absut.isro.archive.domain.usecase.*
-import com.absut.isro.archive.utils.Connectivity
-import com.absut.isro.archive.utils.Resource
 import com.absut.isro.archive.utils.State
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
