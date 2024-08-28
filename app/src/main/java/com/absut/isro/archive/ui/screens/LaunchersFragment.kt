@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.compose.content
 import com.absut.isro.archive.ui.components.ErrorView
 import com.absut.isro.archive.ui.components.LauncherListItem
 import com.absut.isro.archive.ui.components.ProgressView
@@ -31,16 +32,12 @@ class LaunchersFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ) = content {
 
         viewModel.getLaunchers()
-        return ComposeView(requireContext()).apply {
-            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-            setContent {
-                AppTheme {
-                    LauncherScreen()
-                }
-            }
+
+        AppTheme {
+            LauncherScreen()
         }
     }
 
@@ -84,7 +81,6 @@ class LaunchersFragment : Fragment() {
             //LauncherScreen(list = List(20) { Launcher(it, "Launcher $it") })
         }
     }
-
 
 
 }

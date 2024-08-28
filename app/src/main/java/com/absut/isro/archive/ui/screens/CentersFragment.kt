@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.compose.content
 import com.absut.isro.archive.ui.components.CenterListItem
 import com.absut.isro.archive.ui.components.ErrorView
 import com.absut.isro.archive.ui.components.ProgressView
@@ -31,17 +32,12 @@ class CentersFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ) = content {
 
         viewModel.getCentres()
-
-        return ComposeView(requireContext()).apply {
-            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-            setContent {
-                AppTheme {
-                    CentersScreen()
-                }
-            }
+        
+        AppTheme {
+            CentersScreen()
         }
     }
 
@@ -84,13 +80,13 @@ class CentersFragment : Fragment() {
     @Composable
     private fun CentersScreenPreview() {
         AppTheme {
-           /* CentersScreen(list = List(20) { Centre(
-                    it,
-                    "Center name $it",
-                    "Place $it",
-                    "State name $it"
-                )
-            })*/
+            /* CentersScreen(list = List(20) { Centre(
+                     it,
+                     "Center name $it",
+                     "Place $it",
+                     "State name $it"
+                 )
+             })*/
         }
     }
 

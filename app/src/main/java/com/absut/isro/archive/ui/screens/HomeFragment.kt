@@ -35,6 +35,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.fragment.compose.content
 import androidx.navigation.fragment.findNavController
 import com.absut.isro.archive.R
 import com.absut.isro.archive.databinding.FragmentHomeBinding
@@ -45,54 +46,24 @@ import com.example.compose.AppTheme
  */
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-
-       // _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
-       /* binding.composeView.apply {
-            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-            setContent {
-                MaterialTheme {
-                    ComposeContent()
-                }
-            }
-        }*/
-
-       // return binding.root
-
-
-        return ComposeView(requireContext()).apply {
-            // Dispose of the Composition when the view's LifecycleOwner is destroyed
-            setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-            setContent {
-                AppTheme {
-                    HomeScreen()
-                }
-            }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = content {
+        AppTheme {
+            HomeScreen()
         }
-
-
     }
 
     @Composable
     private fun HomeScreen(modifier: Modifier = Modifier) {
-        Column(modifier = modifier
-            .padding(16.dp)
-            .verticalScroll(rememberScrollState())) {
+        Column(
+            modifier = modifier
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
             ContentView(
                 title = R.string.spacecraft_label,
                 desc = R.string.spacecraft_desc,
                 image = R.drawable.ic_rocket_black_24dp
-            ){
+            ) {
                 findNavController().navigate(R.id.action_HomeFragment_to_spacecraftFragment)
             }
             Spacer(modifier = Modifier.height(12.dp))
@@ -100,7 +71,7 @@ class HomeFragment : Fragment() {
                 title = R.string.launchers_label,
                 desc = R.string.launchers_desc,
                 image = R.drawable.ic_rocket_launch_black_24dp
-            ){
+            ) {
                 findNavController().navigate(R.id.action_HomeFragment_to_launchersFragment)
             }
             Spacer(modifier = Modifier.height(12.dp))
@@ -117,8 +88,8 @@ class HomeFragment : Fragment() {
                 title = R.string.centres_label,
                 desc = R.string.centres_desc,
                 image = R.drawable.ic_hub_black_24dp
-            ){
-                findNavController().navigate(R.id.action_HomeFragment_to_centersFragment)   
+            ) {
+                findNavController().navigate(R.id.action_HomeFragment_to_centersFragment)
             }
         }
 
@@ -150,7 +121,7 @@ class HomeFragment : Fragment() {
                 ) {
                     Text(
                         text = stringResource(title),
-                        style = MaterialTheme.typography.titleMedium,   
+                        style = MaterialTheme.typography.titleMedium,
                         fontSize = 20.sp,
                         fontFamily = FontFamily(Font(R.font.roboto_mono_medium)),
                     )
@@ -174,31 +145,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        /*  binding.cardCenters.setOnClickListener {
-              findNavController().navigate(R.id.action_HomeFragment_to_centersFragment)
-          }
-
-          binding.cardLaunchers.setOnClickListener {
-              findNavController().navigate(R.id.action_HomeFragment_to_launchersFragment)
-          }
-
-          binding.cardSpacecraft.setOnClickListener {
-              findNavController().navigate(R.id.action_HomeFragment_to_spacecraftFragment)
-          }
-
-          binding.cardCustomerSatellites.setOnClickListener {
-              findNavController().navigate(R.id.action_HomeFragment_to_customerSatellitesFragment)
-          }*/
-
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
     @Composable
