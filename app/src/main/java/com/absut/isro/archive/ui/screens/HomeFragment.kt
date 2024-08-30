@@ -1,5 +1,6 @@
 package com.absut.isro.archive.ui.screens
 
+import android.content.res.Configuration.UI_MODE_NIGHT_NO
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -39,6 +40,7 @@ import androidx.fragment.compose.content
 import androidx.navigation.fragment.findNavController
 import com.absut.isro.archive.R
 import com.absut.isro.archive.databinding.FragmentHomeBinding
+import com.absut.isro.archive.ui.components.HomeContentCard
 import com.example.compose.AppTheme
 
 /**
@@ -59,7 +61,7 @@ class HomeFragment : Fragment() {
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            ContentView(
+            HomeContentCard(
                 title = R.string.spacecraft_label,
                 desc = R.string.spacecraft_desc,
                 image = R.drawable.ic_rocket_black_24dp
@@ -67,7 +69,7 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(R.id.action_HomeFragment_to_spacecraftFragment)
             }
             Spacer(modifier = Modifier.height(12.dp))
-            ContentView(
+            HomeContentCard(
                 title = R.string.launchers_label,
                 desc = R.string.launchers_desc,
                 image = R.drawable.ic_rocket_launch_black_24dp
@@ -75,7 +77,7 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(R.id.action_HomeFragment_to_launchersFragment)
             }
             Spacer(modifier = Modifier.height(12.dp))
-            ContentView(
+            HomeContentCard(
                 title = R.string.customer_satellite_label,
                 desc = R.string.customer_satellite_desc,
                 image = R.drawable.ic_satellite_black_24dp
@@ -84,7 +86,7 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(R.id.action_HomeFragment_to_customerSatellitesFragment)
             }
             Spacer(modifier = Modifier.height(12.dp))
-            ContentView(
+            HomeContentCard(
                 title = R.string.centres_label,
                 desc = R.string.centres_desc,
                 image = R.drawable.ic_hub_black_24dp
@@ -95,68 +97,11 @@ class HomeFragment : Fragment() {
 
     }
 
-    @Composable
-    private fun ContentView(
-        modifier: Modifier = Modifier,
-        @StringRes title: Int,
-        @StringRes desc: Int,
-        @DrawableRes image: Int,
-        clickListener: () -> Unit = {}
-    ) {
-        Surface(
-            modifier = modifier,
-            shape = Shapes().small,
-            border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
-            color = MaterialTheme.colorScheme.surface,
-            onClick = clickListener
-        ) {
-            Row(
-                modifier = Modifier.padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Column(
-                    modifier = Modifier
-                        .weight(1f)
-                        .padding(end = 12.dp)
-                ) {
-                    Text(
-                        text = stringResource(title),
-                        style = MaterialTheme.typography.titleMedium,
-                        fontSize = 20.sp,
-                        fontFamily = FontFamily(Font(R.font.roboto_mono_medium)),
-                    )
-                    Text(
-                        text = stringResource(desc),
-                        modifier = Modifier.padding(top = 8.dp),
-                        maxLines = 3,
-                        overflow = TextOverflow.Ellipsis,
-                        style = MaterialTheme.typography.bodyMedium,
-                        fontFamily = FontFamily(Font(R.font.roboto_mono_regular))
-                    )
-                }
-                Image(
-                    painter = painterResource(image),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .width(90.dp)
-                        .height(90.dp)
-                )
-            }
-        }
-    }
-
 
     @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_YES)
+    @Preview(showBackground = true, showSystemUi = true, uiMode = UI_MODE_NIGHT_NO)
     @Composable
     fun DefaultPreviewNight() {
-        AppTheme {
-            HomeScreen()
-        }
-    }
-
-    @Preview(showBackground = true, showSystemUi = true)
-    @Composable
-    fun DefaultPreview() {
         AppTheme {
             HomeScreen()
         }
