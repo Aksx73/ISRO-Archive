@@ -7,8 +7,8 @@
 [![ISRO-Archive](https://img.shields.io/badge/ISRO--Archive-APK-red?style=for-the-badge&logo=android)](https://github.com/Aksx73/ISRO-Archive/raw/master/app/release/app-release.apk)
 <br>
 <p>
-    <img src="https://github.com/Aksx73/ISRO-Archive/blob/master/screenshots/Screenshot-20230225-100549.png" width="400" hspace="4" >
-    <img src="https://github.com/Aksx73/ISRO-Archive/blob/master/screenshots/Screenshot-20230225-100620.png" width="400" hspace="4" >
+    <img src="https://github.com/Aksx73/ISRO-Archive/blob/master/screenshots/Screenshot-20230225-100549.png?raw=true" width="400" hspace="4" >
+    <img src="https://github.com/Aksx73/ISRO-Archive/blob/master/screenshots/Screenshot-20230225-100620.png?raw=true" width="400" hspace="4" >
 </p>
 
 ## About
