@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.absut.isro.archive.ui.ISROViewModel
 import com.absut.isro.archive.ui.components.ErrorView
 import com.absut.isro.archive.ui.components.LauncherListItem
@@ -17,7 +18,7 @@ import com.absut.isro.archive.utils.State
 import com.example.compose.AppTheme
 
 @Composable
-fun LauncherScreen(modifier: Modifier = Modifier, viewModel: ISROViewModel) {
+fun LauncherScreen(navController: NavController, modifier: Modifier = Modifier, viewModel: ISROViewModel) {
     viewModel.getLaunchers()
     val launchersState = viewModel.launchers
 
