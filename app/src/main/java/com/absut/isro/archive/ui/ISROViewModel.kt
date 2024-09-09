@@ -31,9 +31,7 @@ class ISROViewModel @Inject constructor(
     var spacecrafts by mutableStateOf<State<List<Spacecraft>>>(State.loading())
         private set
 
-    fun getSpacecrafts() {
-        viewModelScope.launch {
-            spacecrafts = State.loading()
+    fun getSpacecrafts() = viewModelScope.launch {
             getSpacecraftUseCase.execute()
                 .map { resource ->
                     State.fromResource(resource)
@@ -42,7 +40,6 @@ class ISROViewModel @Inject constructor(
                     spacecrafts = state
                 }
         }
-    }
 
     /**
      * Launchers
