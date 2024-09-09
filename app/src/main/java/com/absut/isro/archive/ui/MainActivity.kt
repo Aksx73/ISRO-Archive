@@ -53,6 +53,8 @@ class MainActivity : AppCompatActivity() {
     fun MainScreen() {
         val navController = rememberNavController()
         var showMenu by remember { mutableStateOf(false) }
+        val currentBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentDestination = currentBackStackEntry?.destination
 
         Scaffold(
             topBar = {
@@ -77,14 +79,14 @@ class MainActivity : AppCompatActivity() {
                     }
                 },
                     navigationIcon = {
-                        //  if (navController.previousBackStackEntry != null) {
-                        IconButton(onClick = { navController.navigateUp() }) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                                contentDescription = "Back navigation"
-                            )
+                        if (currentDestination?.route != "home") {
+                            IconButton(onClick = { navController.navigateUp() }) {
+                                Icon(
+                                    imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
+                                    contentDescription = "Navigation up"
+                                )
+                            }
                         }
-                        // }
                     }
                 )
             }
