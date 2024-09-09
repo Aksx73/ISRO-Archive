@@ -73,7 +73,10 @@ class MainActivity : AppCompatActivity() {
                         onDismissRequest = { showMenu = false }
                     ) {
                         DropdownMenuItem(
-                            onClick = { /* Handle settings click */ },
+                            onClick = {
+                                // Handle item click
+                                showMenu = false
+                            },
                             text = { Text(text = "About") }
                         )
                     }
