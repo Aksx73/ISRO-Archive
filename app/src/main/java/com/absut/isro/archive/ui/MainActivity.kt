@@ -61,6 +61,19 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: ISROViewModel by viewModels()
 
+    private val routeToTitleMap = mapOf(
+        "home" to "ISRO \uD83D\uDE80 Archive",
+        "spacecraft" to "Spacecrafts",
+        "launchers" to "Launchers",
+        "satellite" to "Customer Satellites",
+        "centre" to "Centres"
+    )
+
+    companion object{
+        const val ROUTE_HOME = "home"
+        //todo
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
@@ -98,7 +111,7 @@ class MainActivity : AppCompatActivity() {
             topBar = {
                 TopAppBar(title = {
                     Text(
-                        text = stringResource(id = R.string.app_name),
+                        text = routeToTitleMap[currentDestination?.route] ?: stringResource(id = R.string.app_name),
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center
                     )
@@ -157,7 +170,7 @@ class MainActivity : AppCompatActivity() {
                         viewModel = viewModel
                     )
                 }
-                composable("center") {
+                composable("centre") {
                     CentersScreen(
                         navController = navController,
                         viewModel = viewModel
