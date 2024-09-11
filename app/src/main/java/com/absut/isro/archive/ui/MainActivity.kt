@@ -30,6 +30,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
@@ -71,7 +74,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         const val ROUTE_HOME = "home"
-        //todo
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,7 +115,8 @@ class MainActivity : AppCompatActivity() {
                     Text(
                         text = routeToTitleMap[currentDestination?.route] ?: stringResource(id = R.string.app_name),
                         modifier = Modifier.fillMaxWidth(),
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        fontFamily = FontFamily(Font(R.font.roboto_mono_medium))
                     )
                 }, actions = {
                     IconButton(onClick = { showMenu = !showMenu }) {
