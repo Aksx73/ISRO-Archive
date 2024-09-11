@@ -2,9 +2,12 @@ package com.absut.isro.archive.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -20,6 +23,7 @@ fun ErrorView(
     onButtonClick: () -> Unit
 ) {
     Column(
+        modifier = Modifier.fillMaxSize().padding(24.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -33,5 +37,9 @@ fun ErrorView(
 @Preview
 @Composable
 private fun ErrorPreview() {
-    ErrorView() { }
+    Surface(
+        color = MaterialTheme.colorScheme.surface
+    ) {
+        ErrorView() { }
+    }
 }
