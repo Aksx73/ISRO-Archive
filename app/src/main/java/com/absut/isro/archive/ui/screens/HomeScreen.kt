@@ -15,6 +15,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.absut.isro.archive.R
+import com.absut.isro.archive.ui.MainActivity.Companion.ROUTE_CENTRE
+import com.absut.isro.archive.ui.MainActivity.Companion.ROUTE_HOME
+import com.absut.isro.archive.ui.MainActivity.Companion.ROUTE_LAUNCHER
+import com.absut.isro.archive.ui.MainActivity.Companion.ROUTE_SATELLITE
+import com.absut.isro.archive.ui.MainActivity.Companion.ROUTE_SPACECRAFT
 import com.absut.isro.archive.ui.components.HomeContentCard
 import com.example.compose.AppTheme
 
@@ -30,32 +35,34 @@ fun HomeScreen(navController: NavController, modifier: Modifier = Modifier) {
             desc = R.string.spacecraft_desc,
             image = R.drawable.ic_rocket_black_24dp
         ) {
-            navController.navigate("spacecraft")
+            navController.navigate(ROUTE_SPACECRAFT)
         }
         Spacer(modifier = Modifier.height(12.dp))
+
         HomeContentCard(
             title = R.string.launchers_label,
             desc = R.string.launchers_desc,
             image = R.drawable.ic_rocket_launch_black_24dp
         ) {
-            navController.navigate("launchers")
+            navController.navigate(ROUTE_LAUNCHER)
         }
         Spacer(modifier = Modifier.height(12.dp))
+
         HomeContentCard(
             title = R.string.customer_satellite_label,
             desc = R.string.customer_satellite_desc,
             image = R.drawable.ic_satellite_black_24dp
-        )
-        {
-            navController.navigate("satellite")
+        ) {
+            navController.navigate(ROUTE_SATELLITE)
         }
         Spacer(modifier = Modifier.height(12.dp))
+
         HomeContentCard(
             title = R.string.centres_label,
             desc = R.string.centres_desc,
             image = R.drawable.ic_hub_black_24dp
         ) {
-            navController.navigate("centre")
+            navController.navigate(ROUTE_CENTRE)
         }
     }
 

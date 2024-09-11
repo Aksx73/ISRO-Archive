@@ -65,15 +65,19 @@ class MainActivity : AppCompatActivity() {
     private val viewModel: ISROViewModel by viewModels()
 
     private val routeToTitleMap = mapOf(
-        "home" to "ISRO \uD83D\uDE80 Archive",
-        "spacecraft" to "Spacecrafts",
-        "launchers" to "Launchers",
-        "satellite" to "Customer Satellites",
-        "centre" to "Centres"
+        ROUTE_HOME to "ISRO \uD83D\uDE80 Archive",
+        ROUTE_SPACECRAFT to "Spacecrafts",
+        ROUTE_LAUNCHER to "Launchers",
+        ROUTE_SATELLITE to "Customer Satellites",
+        ROUTE_CENTRE to "Centres"
     )
 
-    companion object{
+    companion object {
         const val ROUTE_HOME = "home"
+        const val ROUTE_SPACECRAFT = "spacecraft"
+        const val ROUTE_LAUNCHER = "launchers"
+        const val ROUTE_SATELLITE = "satellite"
+        const val ROUTE_CENTRE = "centre"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -113,7 +117,8 @@ class MainActivity : AppCompatActivity() {
             topBar = {
                 TopAppBar(title = {
                     Text(
-                        text = routeToTitleMap[currentDestination?.route] ?: stringResource(id = R.string.app_name),
+                        text = routeToTitleMap[currentDestination?.route]
+                            ?: stringResource(id = R.string.app_name),
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center,
                         fontFamily = FontFamily(Font(R.font.roboto_mono_medium))
@@ -151,29 +156,31 @@ class MainActivity : AppCompatActivity() {
         ) { innerPadding ->
             NavHost(
                 navController = navController,
-                startDestination = "home",
+                startDestination = ROUTE_HOME,
                 modifier = Modifier.padding(innerPadding)
             ) {
-                composable("home") { HomeScreen(navController = navController) }
-                composable("spacecraft") {
+                composable(ROUTE_HOME) {
+                    HomeScreen(navController = navController)
+                }
+                composable(ROUTE_SPACECRAFT) {
                     SpacecraftScreen(
                         navController = navController,
                         viewModel = viewModel
                     )
                 }
-                composable("satellite") {
+                composable(ROUTE_SATELLITE) {
                     SatelliteScreen(
                         navController = navController,
                         viewModel = viewModel
                     )
                 }
-                composable("launchers") {
+                composable(ROUTE_LAUNCHER) {
                     LauncherScreen(
                         navController = navController,
                         viewModel = viewModel
                     )
                 }
-                composable("centre") {
+                composable(ROUTE_CENTRE) {
                     CentersScreen(
                         navController = navController,
                         viewModel = viewModel
