@@ -55,7 +55,7 @@ fun HomeScreen(navController: NavController, modifier: Modifier = Modifier) {
             desc = R.string.centres_desc,
             image = R.drawable.ic_hub_black_24dp
         ) {
-            navController.navigate("center")
+            navController.navigate("centre")
         }
     }
 
