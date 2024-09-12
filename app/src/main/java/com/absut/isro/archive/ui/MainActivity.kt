@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -81,19 +82,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-        /* binding = ActivityMainBinding.inflate(layoutInflater)
-         setContentView(binding.root)
-
-         setSupportActionBar(binding.toolbar)
-
-         val navHostFragment =
-             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-         val navController = navHostFragment.navController
-         appBarConfiguration = AppBarConfiguration(navController.graph)
-         setupActionBarWithNavController(navController, appBarConfiguration)*/
 
         setContent {
             AppTheme {
@@ -198,32 +189,6 @@ class MainActivity : AppCompatActivity() {
         AppTheme {
             MainScreen()
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.menu_main, menu)
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        return when (item.itemId) {
-            R.id.action_about -> {
-                //do something
-                true
-            }
-
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onSupportNavigateUp(): Boolean {
-        val navController = findNavController(R.id.nav_host_fragment)
-        return navController.navigateUp(appBarConfiguration)
-                || super.onSupportNavigateUp()
     }
 
 }
