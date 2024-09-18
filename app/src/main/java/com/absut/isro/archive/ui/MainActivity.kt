@@ -5,7 +5,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -37,7 +36,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.view.WindowCompat
-import androidx.fragment.app.activityViewModels
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -48,22 +47,17 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.absut.isro.archive.R
-import com.absut.isro.archive.databinding.ActivityMainBinding
 import com.absut.isro.archive.ui.screens.CentersScreen
 import com.absut.isro.archive.ui.screens.HomeScreen
 import com.absut.isro.archive.ui.screens.LauncherScreen
 import com.absut.isro.archive.ui.screens.SatelliteScreen
 import com.absut.isro.archive.ui.screens.SpacecraftScreen
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.compose.AppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
-
-    private val viewModel: ISROViewModel by viewModels()
 
     private val routeToTitleMap = mapOf(
         ROUTE_HOME to "ISRO \uD83D\uDE80 Archive",
@@ -85,7 +79,6 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
 
-
         setContent {
             AppTheme {
                 MainScreen()
@@ -96,7 +89,7 @@ class MainActivity : AppCompatActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
-    fun MainScreen() {
+    fun MainScreen(viewModel: ISROViewModel = viewModel()) {
         val navController = rememberNavController()
         var showMenu by remember { mutableStateOf(false) }
         val currentBackStackEntry by navController.currentBackStackEntryAsState()
@@ -154,24 +147,28 @@ class MainActivity : AppCompatActivity() {
                     HomeScreen(navController = navController)
                 }
                 composable(ROUTE_SPACECRAFT) {
+                    //val viewModel = hiltViewModel<ISROViewModel>()
                     SpacecraftScreen(
                         navController = navController,
                         viewModel = viewModel
                     )
                 }
                 composable(ROUTE_SATELLITE) {
+                    //val viewModel = hiltViewModel<ISROViewModel>()
                     SatelliteScreen(
                         navController = navController,
                         viewModel = viewModel
                     )
                 }
                 composable(ROUTE_LAUNCHER) {
+                    //val viewModel = hiltViewModel<ISROViewModel>()
                     LauncherScreen(
                         navController = navController,
                         viewModel = viewModel
                     )
                 }
                 composable(ROUTE_CENTRE) {
+                    //val viewModel = hiltViewModel<ISROViewModel>()
                     CentersScreen(
                         navController = navController,
                         viewModel = viewModel

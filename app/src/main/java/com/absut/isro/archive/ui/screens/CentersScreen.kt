@@ -19,7 +19,7 @@ import com.example.compose.AppTheme
 
 @Composable
 fun CentersScreen(navController: NavController, modifier: Modifier = Modifier, viewModel: ISROViewModel) {
-    viewModel.getCentres()
+    //viewModel.getCentres()
     val centersState = viewModel.centres
 
     Surface(

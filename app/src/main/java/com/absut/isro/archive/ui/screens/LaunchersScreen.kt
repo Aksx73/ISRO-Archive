@@ -19,7 +19,7 @@ import com.example.compose.AppTheme
 
 @Composable
 fun LauncherScreen(navController: NavController, modifier: Modifier = Modifier, viewModel: ISROViewModel) {
-    viewModel.getLaunchers()
+    //viewModel.getLaunchers()
     val launchersState = viewModel.launchers
 
     Surface(
@@ -43,7 +43,7 @@ fun LauncherScreen(navController: NavController, modifier: Modifier = Modifier, 
 
             is State.Error -> {
                 ErrorView(text = launchersState.message) {
-                    viewModel.getSpacecrafts()
+                    viewModel.getLaunchers()
                 }
             }
         }

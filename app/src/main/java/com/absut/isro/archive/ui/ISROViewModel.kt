@@ -22,6 +22,13 @@ class ISROViewModel @Inject constructor(
     private val getCustomerSatellitesUseCase: GetCustomerSatellitesUseCase
 ) : AndroidViewModel(app) {
 
+    init {
+        getSpacecrafts()
+        getLaunchers()
+        getCentres()
+        getCustomerSatellites()
+    }
+
     /**
      * Spacecrafts
      */

@@ -19,7 +19,7 @@ import com.example.compose.AppTheme
 
 @Composable
 fun SatelliteScreen(navController: NavController, modifier: Modifier = Modifier, viewModel: ISROViewModel) {
-    viewModel.getCustomerSatellites()
+    //viewModel.getCustomerSatellites()
     val satelliteState = viewModel.customerSatellites
 
     Surface(

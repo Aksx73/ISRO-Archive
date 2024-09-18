@@ -19,7 +19,7 @@ import com.example.compose.AppTheme
 
 @Composable
 fun SpacecraftScreen(navController: NavController, modifier: Modifier = Modifier, viewModel: ISROViewModel) {
-    viewModel.getSpacecrafts()
+    //viewModel.getSpacecrafts()
     val spacecraftState = viewModel.spacecrafts
 
     Surface(
