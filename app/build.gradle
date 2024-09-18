@@ -80,6 +80,7 @@ dependencies {
     implementation("androidx.fragment:fragment-compose:1.8.3")
     implementation "androidx.navigation:navigation-fragment-compose:$navigation_component_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version"
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     //Navigation component
     implementation "androidx.navigation:navigation-fragment-ktx:$navigation_component_version"
