@@ -17,6 +17,8 @@ import androidx.compose.material3.Shapes
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -24,6 +26,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.absut.isro.archive.R
 import com.absut.isro.archive.data.model.CustomerSatellite
@@ -34,9 +37,12 @@ import com.absut.isro.archive.utils.State
 import com.example.compose.AppTheme
 
 @Composable
-fun SatelliteScreen(navController: NavController, modifier: Modifier = Modifier, viewModel: ISROViewModel) {
-    //viewModel.getCustomerSatellites()
-    val satelliteState = viewModel.customerSatellites
+fun SatelliteScreen(modifier: Modifier = Modifier, viewModel: ISROViewModel) {
+    val satelliteState by viewModel.customerSatellites.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.getCustomerSatellites()
+    }
 
     Surface(
         modifier = modifier,
@@ -51,14 +57,14 @@ fun SatelliteScreen(navController: NavController, modifier: Modifier = Modifier,
                 LazyColumn(
                     contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
                 ) {
-                    items(satelliteState.data) {
+                    items((satelliteState as State.Success<List<CustomerSatellite>>).data) {
                         SatelliteListItem(item = it)
                     }
                 }
             }
 
             is State.Error -> {
-                ErrorView(text = satelliteState.message) {
+                ErrorView(text = (satelliteState as State.Error<List<CustomerSatellite>>).message) {
                     viewModel.getCustomerSatellites()
                 }
             }
@@ -140,7 +146,16 @@ fun SatelliteListItem(modifier: Modifier = Modifier, item: CustomerSatellite) {
 @Composable
 private fun SpacecraftListItemPreview() {
     AppTheme {
-        SatelliteListItem(item = CustomerSatellite(1, "Germany","DLR-TUBSAT","26-05-1989","PSLV-C2","45"))
+        SatelliteListItem(
+            item = CustomerSatellite(
+                1,
+                "Germany",
+                "DLR-TUBSAT",
+                "26-05-1989",
+                "PSLV-C2",
+                "45"
+            )
+        )
     }
 }
 

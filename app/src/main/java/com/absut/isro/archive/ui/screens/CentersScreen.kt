@@ -17,6 +17,8 @@ import androidx.compose.material3.Shapes
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -24,6 +26,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.absut.isro.archive.R
 import com.absut.isro.archive.data.model.Centre
@@ -34,9 +37,12 @@ import com.absut.isro.archive.utils.State
 import com.example.compose.AppTheme
 
 @Composable
-fun CentersScreen(navController: NavController, modifier: Modifier = Modifier, viewModel: ISROViewModel) {
-    //viewModel.getCentres()
-    val centersState = viewModel.centres
+fun CentersScreen(modifier: Modifier = Modifier, viewModel: ISROViewModel) {
+    val centersState by viewModel.centres.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.getCentres()
+    }
 
     Surface(
         modifier = modifier,
@@ -51,14 +57,14 @@ fun CentersScreen(navController: NavController, modifier: Modifier = Modifier, v
                 LazyColumn(
                     contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
                 ) {
-                    items(centersState.data) {
+                    items((centersState as State.Success<List<Centre>>).data) {
                         CenterListItem(item = it)
                     }
                 }
             }
 
             is State.Error -> {
-                ErrorView(text = centersState.message) {
+                ErrorView(text = (centersState as State.Error<List<Centre>>).message) {
                     viewModel.getCentres()
                 }
 

@@ -22,76 +22,63 @@ class ISROViewModel @Inject constructor(
     private val getCustomerSatellitesUseCase: GetCustomerSatellitesUseCase
 ) : AndroidViewModel(app) {
 
-    init {
-        getSpacecrafts()
-        getLaunchers()
-        getCentres()
-        getCustomerSatellites()
-    }
-
     /**
      * Spacecrafts
      */
-    // private val _spacecrafts: MutableStateFlow<State<List<Spacecraft>>> = MutableStateFlow(State.loading())
-    //val spacecrafts: StateFlow<State<List<Spacecraft>>> = _spacecrafts
-
-    var spacecrafts by mutableStateOf<State<List<Spacecraft>>>(State.loading())
-        private set
+    private val _spacecrafts: MutableStateFlow<State<List<Spacecraft>>> = MutableStateFlow(State.loading())
+    val spacecrafts: StateFlow<State<List<Spacecraft>>> = _spacecrafts.asStateFlow()
 
     fun getSpacecrafts() = viewModelScope.launch {
             getSpacecraftUseCase.execute()
                 .map { resource ->
                     State.fromResource(resource)
                 }.collect { state ->
-                    // _spacecrafts.value = state
-                    spacecrafts = state
+                     _spacecrafts.value = state
                 }
         }
 
     /**
      * Launchers
      */
-    var launchers by mutableStateOf<State<List<Launcher>>>(State.loading())
-        private set
+    private val _launchers: MutableStateFlow<State<List<Launcher>>> = MutableStateFlow(State.loading())
+    val launchers: StateFlow<State<List<Launcher>>> = _launchers.asStateFlow()
 
     fun getLaunchers() = viewModelScope.launch {
         getLaunchersUseCase.execute()
             .map { response ->
                 State.fromResource(response)
             }.collect { state ->
-                launchers = state
+                _launchers.value = state
             }
     }
 
     /**
      * Customer_Satellites
      */
-
-    var customerSatellites by mutableStateOf<State<List<CustomerSatellite>>>(State.loading())
-        private set
+    private val _customerSatellites: MutableStateFlow<State<List<CustomerSatellite>>> = MutableStateFlow(State.loading())
+    val customerSatellites: StateFlow<State<List<CustomerSatellite>>> = _customerSatellites.asStateFlow()
 
     fun getCustomerSatellites() = viewModelScope.launch {
         getCustomerSatellitesUseCase.execute()
             .map { response ->
                 State.fromResource(response)
             }.collect { state ->
-                customerSatellites = state
+                _customerSatellites.value = state
             }
     }
 
     /**
      * Centres
      */
-
-    var centres by mutableStateOf<State<List<Centre>>>(State.loading())
-        private set
+    private val _centres: MutableStateFlow<State<List<Centre>>> = MutableStateFlow(State.loading())
+    val centres: StateFlow<State<List<Centre>>> = _centres.asStateFlow()
 
     fun getCentres() = viewModelScope.launch {
         getCentersUseCase.execute()
             .map { response ->
                 State.fromResource(response)
             }.collect { state ->
-                centres = state
+                _centres.value = state
             }
     }
 

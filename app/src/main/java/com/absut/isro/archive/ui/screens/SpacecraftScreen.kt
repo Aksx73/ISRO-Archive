@@ -17,6 +17,8 @@ import androidx.compose.material3.Shapes
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -24,7 +26,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.absut.isro.archive.R
 import com.absut.isro.archive.data.model.Spacecraft
 import com.absut.isro.archive.ui.ISROViewModel
@@ -34,9 +36,12 @@ import com.absut.isro.archive.utils.State
 import com.example.compose.AppTheme
 
 @Composable
-fun SpacecraftScreen(navController: NavController, modifier: Modifier = Modifier, viewModel: ISROViewModel) {
-    //viewModel.getSpacecrafts()
-    val spacecraftState = viewModel.spacecrafts
+fun SpacecraftScreen(modifier: Modifier = Modifier, viewModel: ISROViewModel) {
+    val spacecraftState by viewModel.spacecrafts.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.getSpacecrafts()
+    }
 
     Surface(
         modifier = modifier,
@@ -51,14 +56,14 @@ fun SpacecraftScreen(navController: NavController, modifier: Modifier = Modifier
                 LazyColumn(
                     contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
                 ) {
-                    items(spacecraftState.data) {
+                    items((spacecraftState as State.Success<List<Spacecraft>>).data) {
                         SpacecraftListItem(item = it)
                     }
                 }
             }
 
             is State.Error -> {
-                ErrorView(text = spacecraftState.message) {
+                ErrorView(text = (spacecraftState as State.Error<List<Spacecraft>>).message) {
                     viewModel.getSpacecrafts()
                 }
             }

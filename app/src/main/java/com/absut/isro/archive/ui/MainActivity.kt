@@ -147,30 +147,22 @@ class MainActivity : AppCompatActivity() {
                     HomeScreen(navController = navController)
                 }
                 composable(ROUTE_SPACECRAFT) {
-                    //val viewModel = hiltViewModel<ISROViewModel>()
                     SpacecraftScreen(
-                        navController = navController,
                         viewModel = viewModel
                     )
                 }
                 composable(ROUTE_SATELLITE) {
-                    //val viewModel = hiltViewModel<ISROViewModel>()
                     SatelliteScreen(
-                        navController = navController,
                         viewModel = viewModel
                     )
                 }
                 composable(ROUTE_LAUNCHER) {
-                    //val viewModel = hiltViewModel<ISROViewModel>()
                     LauncherScreen(
-                        navController = navController,
                         viewModel = viewModel
                     )
                 }
                 composable(ROUTE_CENTRE) {
-                    //val viewModel = hiltViewModel<ISROViewModel>()
                     CentersScreen(
-                        navController = navController,
                         viewModel = viewModel
                     )
                 }
