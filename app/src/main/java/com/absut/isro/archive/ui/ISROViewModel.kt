@@ -25,38 +25,42 @@ class ISROViewModel @Inject constructor(
     /**
      * Spacecrafts
      */
-    private val _spacecrafts: MutableStateFlow<State<List<Spacecraft>>> = MutableStateFlow(State.loading())
+    private val _spacecrafts: MutableStateFlow<State<List<Spacecraft>>> =
+        MutableStateFlow(State.loading())
     val spacecrafts: StateFlow<State<List<Spacecraft>>> = _spacecrafts.asStateFlow()
 
     fun getSpacecrafts() = viewModelScope.launch {
-            getSpacecraftUseCase.execute()
-                .map { resource ->
-                    State.fromResource(resource)
-                }.collect { state ->
-                     _spacecrafts.value = state
-                }
-        }
+        getSpacecraftUseCase.execute()
+            .map { resource ->
+                State.fromResource(resource)
+            }.collect { state ->
+                _spacecrafts.value = state
+            }
+    }
 
     /**
      * Launchers
      */
-    private val _launchers: MutableStateFlow<State<List<Launcher>>> = MutableStateFlow(State.loading())
-    val launchers: StateFlow<State<List<Launcher>>> = _launchers.asStateFlow()
+    var launchers by mutableStateOf<State<List<Launcher>>>(State.loading())
+        private set
 
     fun getLaunchers() = viewModelScope.launch {
+        launchers = State.loading()
         getLaunchersUseCase.execute()
             .map { response ->
                 State.fromResource(response)
             }.collect { state ->
-                _launchers.value = state
+                launchers = state
             }
     }
 
     /**
      * Customer_Satellites
      */
-    private val _customerSatellites: MutableStateFlow<State<List<CustomerSatellite>>> = MutableStateFlow(State.loading())
-    val customerSatellites: StateFlow<State<List<CustomerSatellite>>> = _customerSatellites.asStateFlow()
+    private val _customerSatellites: MutableStateFlow<State<List<CustomerSatellite>>> =
+        MutableStateFlow(State.loading())
+    val customerSatellites: StateFlow<State<List<CustomerSatellite>>> =
+        _customerSatellites.asStateFlow()
 
     fun getCustomerSatellites() = viewModelScope.launch {
         getCustomerSatellitesUseCase.execute()

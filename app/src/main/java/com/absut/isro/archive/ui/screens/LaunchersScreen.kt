@@ -38,7 +38,7 @@ import com.example.compose.AppTheme
 
 @Composable
 fun LauncherScreen(modifier: Modifier = Modifier, viewModel: ISROViewModel) {
-    val launchersState by viewModel.launchers.collectAsStateWithLifecycle()
+    val launchersState = viewModel.launchers
 
     LaunchedEffect(Unit) {
         viewModel.getLaunchers()
@@ -57,14 +57,14 @@ fun LauncherScreen(modifier: Modifier = Modifier, viewModel: ISROViewModel) {
                 LazyColumn(
                     contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
                 ) {
-                    items((launchersState as State.Success<List<Launcher>>).data) {
+                    items(launchersState.data) {
                         LauncherListItem(item = it)
                     }
                 }
             }
 
             is State.Error -> {
-                ErrorView(text = (launchersState as State.Error<List<Launcher>>).message) {
+                ErrorView(text = launchersState.message) {
                     viewModel.getLaunchers()
                 }
             }
