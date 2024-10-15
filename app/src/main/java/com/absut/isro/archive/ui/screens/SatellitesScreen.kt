@@ -38,7 +38,7 @@ import com.example.compose.AppTheme
 
 @Composable
 fun SatelliteScreen(modifier: Modifier = Modifier, viewModel: ISROViewModel) {
-    val satelliteState by viewModel.customerSatellites.collectAsStateWithLifecycle()
+    val satelliteState = viewModel.customerSatellites
 
     LaunchedEffect(Unit) {
         viewModel.getCustomerSatellites()
@@ -57,14 +57,14 @@ fun SatelliteScreen(modifier: Modifier = Modifier, viewModel: ISROViewModel) {
                 LazyColumn(
                     contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
                 ) {
-                    items((satelliteState as State.Success<List<CustomerSatellite>>).data) {
+                    items(satelliteState.data) {
                         SatelliteListItem(item = it)
                     }
                 }
             }
 
             is State.Error -> {
-                ErrorView(text = (satelliteState as State.Error<List<CustomerSatellite>>).message) {
+                ErrorView(text = satelliteState.message) {
                     viewModel.getCustomerSatellites()
                 }
             }
