@@ -25,16 +25,16 @@ class ISROViewModel @Inject constructor(
     /**
      * Spacecrafts
      */
-    private val _spacecrafts: MutableStateFlow<State<List<Spacecraft>>> =
-        MutableStateFlow(State.loading())
-    val spacecrafts: StateFlow<State<List<Spacecraft>>> = _spacecrafts.asStateFlow()
+    var spacecrafts by mutableStateOf<State<List<Spacecraft>>>(State.loading())
+        private set
 
     fun getSpacecrafts() = viewModelScope.launch {
+        spacecrafts = State.loading()
         getSpacecraftUseCase.execute()
             .map { resource ->
                 State.fromResource(resource)
             }.collect { state ->
-                _spacecrafts.value = state
+                spacecrafts = state
             }
     }
 

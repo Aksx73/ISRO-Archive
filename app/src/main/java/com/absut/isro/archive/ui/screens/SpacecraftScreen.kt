@@ -37,7 +37,7 @@ import com.example.compose.AppTheme
 
 @Composable
 fun SpacecraftScreen(modifier: Modifier = Modifier, viewModel: ISROViewModel) {
-    val spacecraftState by viewModel.spacecrafts.collectAsStateWithLifecycle()
+    val spacecraftState = viewModel.spacecrafts
 
     LaunchedEffect(Unit) {
         viewModel.getSpacecrafts()
@@ -56,14 +56,14 @@ fun SpacecraftScreen(modifier: Modifier = Modifier, viewModel: ISROViewModel) {
                 LazyColumn(
                     contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
                 ) {
-                    items((spacecraftState as State.Success<List<Spacecraft>>).data) {
+                    items(spacecraftState.data) {
                         SpacecraftListItem(item = it)
                     }
                 }
             }
 
             is State.Error -> {
-                ErrorView(text = (spacecraftState as State.Error<List<Spacecraft>>).message) {
+                ErrorView(text = spacecraftState.message) {
                     viewModel.getSpacecrafts()
                 }
             }
