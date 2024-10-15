@@ -38,7 +38,7 @@ import com.example.compose.AppTheme
 
 @Composable
 fun CentersScreen(modifier: Modifier = Modifier, viewModel: ISROViewModel) {
-    val centersState by viewModel.centres.collectAsStateWithLifecycle()
+    val centersState = viewModel.centres
 
     LaunchedEffect(Unit) {
         viewModel.getCentres()
@@ -57,14 +57,14 @@ fun CentersScreen(modifier: Modifier = Modifier, viewModel: ISROViewModel) {
                 LazyColumn(
                     contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp)
                 ) {
-                    items((centersState as State.Success<List<Centre>>).data) {
+                    items(centersState.data) {
                         CenterListItem(item = it)
                     }
                 }
             }
 
             is State.Error -> {
-                ErrorView(text = (centersState as State.Error<List<Centre>>).message) {
+                ErrorView(text = centersState.message) {
                     viewModel.getCentres()
                 }
 

@@ -74,15 +74,16 @@ class ISROViewModel @Inject constructor(
     /**
      * Centres
      */
-    private val _centres: MutableStateFlow<State<List<Centre>>> = MutableStateFlow(State.loading())
-    val centres: StateFlow<State<List<Centre>>> = _centres.asStateFlow()
+    var centres by mutableStateOf<State<List<Centre>>>(State.loading())
+        private set
 
     fun getCentres() = viewModelScope.launch {
+        centres = State.loading()
         getCentersUseCase.execute()
             .map { response ->
                 State.fromResource(response)
             }.collect { state ->
-                _centres.value = state
+                centres = state
             }
     }
 
