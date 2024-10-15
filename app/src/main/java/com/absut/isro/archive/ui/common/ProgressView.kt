@@ -1,4 +1,4 @@
-package com.absut.isro.archive.ui.components
+package com.absut.isro.archive.ui.common
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

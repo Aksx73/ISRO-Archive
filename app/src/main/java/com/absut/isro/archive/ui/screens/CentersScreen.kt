@@ -18,7 +18,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -26,13 +25,11 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation.NavController
 import com.absut.isro.archive.R
 import com.absut.isro.archive.data.model.Centre
 import com.absut.isro.archive.ui.ISROViewModel
-import com.absut.isro.archive.ui.components.ErrorView
-import com.absut.isro.archive.ui.components.ProgressView
+import com.absut.isro.archive.ui.common.ErrorView
+import com.absut.isro.archive.ui.common.ProgressView
 import com.absut.isro.archive.utils.State
 import com.example.compose.AppTheme
 
