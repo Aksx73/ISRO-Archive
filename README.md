@@ -1,5 +1,5 @@
 # ISRO-Archive
-#### Android app showing Launched Spacecrafts & Rockets data of ISRO using [ISRO 🚀 API](https://github.com/isro/api). App is built to demonstrate Modern Android Development.
+#### Android app showing Launched Spacecrafts & Rockets data of ISRO using [ISRO 🚀 API](https://github.com/isro/api). App is built to demonstrate Modern Android Development. UI migrated to jetpack compose.
 
 ***You can Install and test latest build from below 👇***
 
@@ -19,6 +19,7 @@ App follows clean architecture pattern (MVVM + Usecases). Whole app is organized
 
 ## Built With 🛠
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
+- [Jetpack Compose](https://developer.android.com/develop/ui/compose) - A declarative UI toolkit for building native Android UI
 - [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - for asynchronous
 - [Flow](https://kotlin.github.io/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/) - A cold asynchronous data stream that sequentially emits values and completes normally or with an exception.
 - [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - Dependency injection library for Android that reduces the boilerplate of doing manual dependency injection in your project
