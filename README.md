@@ -1,5 +1,5 @@
 # ISRO-Archive
-#### Android app showing Launched Spacecrafts & Rockets data of ISRO using [ISRO 🚀 API](https://github.com/isro/api). App is built to demonstrate Modern Android Development. UI migrated to jetpack compose.
+#### Android app showing Launched Spacecrafts & Rockets data of ISRO using [ISRO 🚀 API](https://github.com/isro/api). App is built to demonstrate Modern Android Development. UI migrated to Jetpack Compose.
 
 ***You can Install and test latest build from below 👇***
 
