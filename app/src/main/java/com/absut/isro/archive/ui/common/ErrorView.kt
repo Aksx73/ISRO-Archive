@@ -39,6 +39,6 @@ private fun ErrorPreview() {
     Surface(
         color = MaterialTheme.colorScheme.surface
     ) {
-        ErrorView() { }
+        ErrorView { }
     }
 }
