@@ -65,7 +65,7 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.13.1'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    //implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     //compose
     def composeBom = platform('androidx.compose:compose-bom:2024.10.00')
@@ -83,15 +83,15 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     //Navigation component
-    implementation "androidx.navigation:navigation-fragment-ktx:$navigation_component_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$navigation_component_version"
+    //implementation "androidx.navigation:navigation-fragment-ktx:$navigation_component_version"
+    //implementation "androidx.navigation:navigation-ui-ktx:$navigation_component_version"
 
     implementation 'com.google.code.gson:gson:2.10.1' // serialization/deserialization library to convert Java Objects into JSON and back
 
     // ViewModel & LiveData & Coroutine Lifecycle Scopes
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    //implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
+   // implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+   // implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
 
     //Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
