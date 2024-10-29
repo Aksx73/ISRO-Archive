@@ -15,12 +15,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ISROViewModel @Inject constructor(
-    private val app: Application,
     private val getSpacecraftUseCase: GetSpacecraftUseCase,
     private val getLaunchersUseCase: GetLaunchersUseCase,
     private val getCentersUseCase: GetCentersUseCase,
     private val getCustomerSatellitesUseCase: GetCustomerSatellitesUseCase
-) : AndroidViewModel(app) {
+) : ViewModel() {
 
     /**
      * Spacecrafts
