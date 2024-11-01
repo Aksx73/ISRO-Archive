@@ -51,6 +51,7 @@ fun HomeScreen(navController: NavController, modifier: Modifier = Modifier) {
         ) {
             navController.navigate(ROUTE_SPACECRAFT)
         }
+
         Spacer(modifier = Modifier.height(12.dp))
 
         HomeContentCard(
@@ -60,6 +61,7 @@ fun HomeScreen(navController: NavController, modifier: Modifier = Modifier) {
         ) {
             navController.navigate(ROUTE_LAUNCHER)
         }
+
         Spacer(modifier = Modifier.height(12.dp))
 
         HomeContentCard(
@@ -69,6 +71,7 @@ fun HomeScreen(navController: NavController, modifier: Modifier = Modifier) {
         ) {
             navController.navigate(ROUTE_SATELLITE)
         }
+
         Spacer(modifier = Modifier.height(12.dp))
 
         HomeContentCard(
